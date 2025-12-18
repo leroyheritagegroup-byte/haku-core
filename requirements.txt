@@ -6,5 +6,5 @@ psycopg2-binary
 cryptography
 anthropic
 openai
-google-generativeai
+google-genai
 requests

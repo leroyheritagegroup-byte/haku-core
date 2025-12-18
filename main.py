@@ -26,7 +26,7 @@ import base64
 # AI clients
 import anthropic
 import openai
-from google import generativeai as genai
+from google import genai
 
 app = FastAPI(title="Haku", version="1.0.0")
 
