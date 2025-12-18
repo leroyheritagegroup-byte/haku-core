@@ -2,3 +2,4 @@ credentials/
 .env
 credentials/
 .env
+node_modules/
