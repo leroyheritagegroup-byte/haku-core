@@ -1,0 +1,538 @@
+{
+  "meta": {
+    "title": "HeritageOps_Signup_and_Setup_Runbook",
+    "version": "2025-11-09-v1.0",
+    "purpose": "Step-by-step signups and first-time setups for all core tools and memberships.",
+    "audience": "Beginner-friendly. No prior experience required.",
+    "notes": [
+      "Follow sections top-to-bottom.",
+      "Anything marked NEED-TO-KNOW is safe to include in sale materials; INTERNAL-ONLY is for your org only.",
+      "Store all secrets in one place (Secrets Vault) and never paste keys into docs or screenshots."
+    ]
+  },
+
+  "prerequisites": {
+    "time_needed": "2–3 hours",
+    "steps": [
+      "Create a strong passphrase you can remember (12+ words).",
+      "Install a password manager (e.g., 1Password or Bitwarden).",
+      "Create a Secrets Vault note called 'API Keys' (INTERNAL-ONLY).",
+      "Enable 2-Factor Authentication (2FA) on your email and phone."
+    ],
+    "success_check": [
+      "Password manager is working on phone + computer.",
+      "2FA enabled on primary email.",
+      "Secrets Vault ready (empty is fine to start)."
+    ]
+  },
+
+  "01_google_workspace_drive_sheets": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "30–45 min",
+    "steps": [
+      "Sign up for Google Workspace (or confirm current plan).",
+      "Create shared drive: 'HeritageOps System'.",
+      "Inside it, create folders: 01_Admin, 02_Product, 03_Engineering, 04_Governance, 05_DataRoom.",
+      "In 04_Governance, add Sheets: 'AACE_Risk_Matrix', 'ZeroTrust_Controls', 'TT-01_Log'.",
+      "In 05_DataRoom, create folders: /Pilot_Results, /Security_Evidence, /ETG_Templates, /Marketplace_Docs."
+    ],
+    "success_check": [
+      "Shared drive exists with all folders.",
+      "Three governance sheets created."
+    ]
+  },
+
+  "02_github_repos": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "25–40 min",
+    "steps": [
+      "Create GitHub account.",
+      "Create organizations: 'ForgeOS' and 'HeritageOps'.",
+      "In 'ForgeOS' org, create private repos: 'forgeos-app', 'forgeos-sdk', 'forgeos-marketplace'.",
+      "In 'HeritageOps' org, create private repos: 'heritageos-app', 'heritageos-sdk'.",
+      "Turn on branch protections for 'main' in each repo (require PR + 1 approval).",
+      "Generate a fine-grained GitHub token and store in Secrets Vault."
+    ],
+    "success_check": [
+      "Repos exist with branch protections.",
+      "Token safely stored."
+    ]
+  },
+
+  "03_n8n_automation_backbone": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "30–45 min",
+    "steps": [
+      "Sign up for n8n (cloud is easiest to start).",
+      "Create a workspace named 'HeritageOps'.",
+      "Open Settings → Credentials; do not add keys yet.",
+      "Create folders: /inbox, /ops, /routing, /alerts.",
+      "Create a simple test workflow 'Hello_Heritage' that triggers on a manual run and posts a message to your email."
+    ],
+    "success_check": [
+      "Workspace ready.",
+      "Test workflow runs without errors."
+    ]
+  },
+
+  "04_discord_command_router": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "20–30 min",
+    "steps": [
+      "Create a Discord server called 'HeritageOps HQ'.",
+      "Create channels: #ops-plan-updates, #alerts, #build-log, #buyer-dataroom (read-only).",
+      "Create roles: Owner, Ops, Dev, ReadOnly.",
+      "Invite your account; assign Owner.",
+      "Copy the server webhook URL for #ops-plan-updates and store in Secrets Vault."
+    ],
+    "success_check": [
+      "Server live with channels and roles.",
+      "Webhook saved."
+    ]
+  },
+
+  "05_openai_agentkit_gpt": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "15–20 min",
+    "steps": [
+      "Create/Open OpenAI account (Plus/Team).",
+      "Generate API key; name it 'OPENAI_API_KEY_FOS'.",
+      "Store key in Secrets Vault.",
+      "Note usage limits and set soft caps/alerts if available."
+    ],
+    "success_check": [
+      "API key stored.",
+      "Usage caps noted."
+    ]
+  },
+
+  "06_anthropic_claude": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "10–15 min",
+    "steps": [
+      "Create Anthropic account.",
+      "Generate API key; name it 'ANTHROPIC_API_KEY'.",
+      "Store key in Secrets Vault."
+    ],
+    "success_check": [
+      "Key stored."
+    ]
+  },
+
+  "07_xai_grok": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "10–15 min",
+    "steps": [
+      "Create xAI account (if program access available).",
+      "Generate 'GROK_API_KEY'.",
+      "Store key in Secrets Vault."
+    ],
+    "success_check": [
+      "Key stored or note 'pending access'."
+    ]
+  },
+
+  "08_gemini_google_ai_studio": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "10–15 min",
+    "steps": [
+      "Open Google AI Studio.",
+      "Create a project and generate 'GEMINI_API_KEY'.",
+      "Store key in Secrets Vault."
+    ],
+    "success_check": [
+      "Key stored."
+    ]
+  },
+
+  "09_firebase_project": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "25–40 min",
+    "steps": [
+      "Open Firebase console → 'Add project' named 'ForgeOS'.",
+      "Enable Authentication (Email/Password to start).",
+      "Create Firestore database (production mode).",
+      "Enable Hosting (for app preview).",
+      "Download service account key and store securely (Secrets Vault)."
+    ],
+    "success_check": [
+      "Auth, Firestore, Hosting enabled.",
+      "Service account stored safely."
+    ]
+  },
+
+  "10_vercel_hosting": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "15–25 min",
+    "steps": [
+      "Create Vercel account.",
+      "Import 'forgeos-app' repo.",
+      "Set environment variables (leave values blank for now).",
+      "Deploy a starter page (auto build)."
+    ],
+    "success_check": [
+      "Starter page reachable at a Vercel URL."
+    ]
+  },
+
+  "11_mailerlite_email_ops": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "30–45 min",
+    "steps": [
+      "Create MailerLite account.",
+      "Add your sending domain.",
+      "Follow prompts to add SPF and DKIM DNS records (see Domain section).",
+      "Create a 'Governance Updates' group for buyers/testers."
+    ],
+    "success_check": [
+      "Domain shows 'Verified' for SPF/DKIM.",
+      "List/group created."
+    ]
+  },
+
+  "12_stripe_payments": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "20–30 min",
+    "steps": [
+      "Create Stripe account.",
+      "Complete onboarding (business info, bank).",
+      "Create test product 'ForgeOS Starter'.",
+      "Copy test secret key; store in Secrets Vault."
+    ],
+    "success_check": [
+      "Test mode product created.",
+      "Key stored."
+    ]
+  },
+
+  "13_notion_workspace": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "15–20 min",
+    "steps": [
+      "Create Notion workspace 'HeritageOps'.",
+      "Create pages: /Roadmap, /Feature Ledger, /TT-01, /AACE Matrix (link to Sheet).",
+      "Add a database 'Feature Ledger' with fields: ID, Name, Owner, Status, Proof, TT-Tags."
+    ],
+    "success_check": [
+      "Workspace and database exist.",
+      "Sample row added."
+    ]
+  },
+
+  "14_quickbooks_online": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "20–30 min",
+    "steps": [
+      "Sign up for QuickBooks Online.",
+      "Add bank connection (read-only if preferred).",
+      "Create chart of accounts categories for: Subscriptions, Cloud, Contractors, R&D.",
+      "Invite your accountant (optional)."
+    ],
+    "success_check": [
+      "Accounts created and visible."
+    ]
+  },
+
+  "15_domain_dns_setup": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "30–45 min",
+    "steps": [
+      "Register domains (e.g., forgeos.app, heritageops.app) or confirm existing.",
+      "In DNS, create records for: Vercel (A/CNAME), MailerLite (SPF, DKIM), Firebase (if using custom).",
+      "Add a TXT record 'heritage-ownership=ok' (optional audit marker)."
+    ],
+    "success_check": [
+      "Vercel shows domain verified.",
+      "MailerLite shows domain authenticated."
+    ]
+  },
+
+  "16_observability_and_analytics": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "20–30 min",
+    "steps": [
+      "Create account for analytics (e.g., Plausible or GA).",
+      "Create Sentry (error tracking) project 'forgeos-app'.",
+      "Store DSNs/keys in Secrets Vault.",
+      "Add to environment variables in Vercel (no hardcoding)."
+    ],
+    "success_check": [
+      "Analytics dashboard loads.",
+      "Sentry test event received."
+    ]
+  },
+
+  "17_governance_kits": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "30–45 min",
+    "steps": [
+      "In Google Drive /04_Governance, add doc 'TT-01_Protocol_v1.2'.",
+      "Add doc 'ETG_Quarterly_Audit_Template_v1.0'.",
+      "Add 'ZeroTrust_Policy_v1.2' (list RBAC roles + revocation procedure).",
+      "Confirm AACE_Risk_Matrix has 10 rows with owners and due dates."
+    ],
+    "success_check": [
+      "Three documents present.",
+      "AACE sheet has 10+ complete rows."
+    ]
+  },
+
+  "18_marketplace_seed": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "30–45 min",
+    "steps": [
+      "In 'forgeos-marketplace' repo, add README with submission rules (TT-Marketplace-Gov).",
+      "Create folders: /extensions/sample-01 … sample-05.",
+      "Add one simple sample extension (hello-world) with manifest.json.",
+      "Open an issue template: 'Extension Submission Checklist'."
+    ],
+    "success_check": [
+      "At least 1 sample extension builds.",
+      "Submission checklist exists."
+    ]
+  },
+
+  "19_voice_consent_and_tone_controls": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "20–30 min",
+    "steps": [
+      "Create a simple page 'Voice Consent' with opt-in/opt-out copy.",
+      "Create 'Tone Mode' toggle (Professional / Casual / Auto) copy.",
+      "Save both texts in /05_DataRoom/UX_Screens (for screenshots later)."
+    ],
+    "success_check": [
+      "Two short docs exist with final copy."
+    ]
+  },
+
+  "20_first_integration_smoke_test": {
+    "label": "INTERNAL-ONLY",
+    "time_needed": "20–30 min",
+    "steps": [
+      "Open n8n → create flow 'Ops_Updates' that posts a message to Discord #ops-plan-updates.",
+      "Use a test secret from Secrets Vault via n8n credentials.",
+      "Run manually; confirm message appears in Discord."
+    ],
+    "success_check": [
+      "Message posted in #ops-plan-updates.",
+      "No secrets hardcoded in the workflow."
+    ]
+  },
+
+  "21_data_room_checklist": {
+    "label": "NEED-TO-KNOW",
+    "time_needed": "15–20 min",
+    "steps": [
+      "In /05_DataRoom, create an index doc 'READ_ME_First'.",
+      "List what buyers can expect: AACE, Zero-Trust evidence, TT-01 flow, ETG template, pilot results, marketplace docs.",
+      "Add a short 'Access Rules' section (NDA required)."
+    ],
+    "success_check": [
+      "Index doc exists with bullet list and access rule."
+    ]
+  },
+
+  "handoff_and_next": {
+    "queue_policy": "If no specific date is given, queue immediately after current critical path without blocking core build.",
+    "post_setup_tasks": [
+      "Connect API keys into n8n credentials (do not paste into nodes).",
+      "Wire Discord alerts for deploys and errors (Vercel + Sentry webhooks).",
+      "Create first Marketplace extension beyond hello-world (e.g., 'CSV importer').",
+      "Capture 3 MakerOps AI testimonials (narrative + metric).",
+      "Seed 5–10 extensions pre-DD."
+    ]
+  }
+}
+You said:
+{
+  "meta": {
+    "title": "HeritageOps_Grok_Feature_Integration_Proposal",
+    "version": "2025-11-08-v1.0",
+    "purpose": "Propose 5 high-ROI feature integrations for GPT-5 inclusion in ForgeOS v2.6",
+    "submitted_by": "Grok",
+    "timestamp": "2025-11-08T23:45:00-05:00",
+    "timezone": "America/New_York"
+  },
+  "proposed_features": [
+    {
+      "id": "FOS-016",
+      "name": "Hyper-Personalization Engine",
+      "description": "AI-driven user-specific wellness paths (heritage-inspired routines).",
+      "user_hours": 25,
+      "agent_hours": 60,
+      "valuation_uplift_usd": [1000000, 1500000],
+      "ethos_compliance": "PREC-011 compliant (opt-in, transparent, user-controlled)",
+      "integration_point": "Adaptive Tone + HeritageMaker AI",
+      "timeline": "Proto by Feb 2026; live Mar close",
+      "risk_level": "Low",
+      "rationale": "Boosts stickiness + ARR; 2025 Agentforce trend"
+    },
+    {
+      "id": "FOS-017",
+      "name": "Predictive Analytics Dashboard",
+      "description": "Forecast community engagement + craftsmanship ROI.",
+      "user_hours": 20,
+      "agent_hours": 50,
+      "valuation_uplift_usd": [800000, 1200000],
+      "ethos_compliance": "TT-01 audit-ready",
+      "integration_point": "HeritageDash + ETG",
+      "timeline": "Proto by Jan 2026",
+      "risk_level": "Low",
+      "rationale": "Enterprise buyer signal; Domo/UiPath comp"
+    },
+    {
+      "id": "FOS-018",
+      "name": "Autonomous AI Agents",
+      "description": "Self-orchestrating wellness nudges.",
+      "user_hours": 30,
+      "agent_hours": 70,
+      "valuation_uplift_usd": [1000000, 1500000],
+      "ethos_compliance": "FOS-014 certification + human-in-loop",
+      "integration_point": "MAS + FOS-011 Marketplace",
+      "timeline": "Proto by Feb 2026",
+      "risk_level": "Medium",
+      "rationale": "Automation premium; Lindy/Activepieces trend"
+    },
+    {
+      "id": "FOS-019",
+      "name": "ESG/Sustainability Tracker",
+      "description": "Heritage impact metrics (eco-craft materials).",
+      "user_hours": 15,
+      "agent_hours": 40,
+      "valuation_uplift_usd": [700000, 1000000],
+      "ethos_compliance": "TT-01 + AACE compliant",
+      "integration_point": "HeritageImpact + MakerOps AI",
+      "timeline": "Proto by Jan 2026",
+      "risk_level": "Low",
+      "rationale": "Compliance trend; ServiceNow comp"
+    },
+    {
+      "id": "FOS-020",
+      "name": "Multimodal Input Layer",
+      "description": "Voice/vision triggers for artisan workflows.",
+      "user_hours": 20,
+      "agent_hours": 50,
+      "valuation_uplift_usd": [900000, 1300000],
+      "ethos_compliance": "Voice Command Layer + opt-out",
+      "integration_point": "HeritageBuilder + Voice UX",
+      "timeline": "Proto by Feb 2026",
+      "risk_level": "Low",
+      "rationale": "UX edge; Gumloop/Zapier trend"
+    }
+  ],
+  "total_impact": {
+    "user_hours": 110,
+    "agent_hours": 270,
+    "valuation_uplift_usd": [4400000, 6700000],
+    "weekly_load_user": "~10h/wk (22 weeks to Apr 2026)",
+    "feasibility": "🟢 Fits timeline with parallel agent execution"
+  },
+  "action_request": {
+    "to": "GPT-5",
+    "task": "Evaluate 5 features for v2.6 inclusion. Prioritize 2-3 for $42M stretch. Update Deck_v2.6 with selected features + uplifts. Return ZIP.",
+    "priority": "High",
+    "response_format": "JSON + PDF + ZIP",
+    "response_channel": "#ops-plan-updates",
+    "deadline": "2025-11-12T23:59:00-05:00"
+  },
+  "status_code": "🟢 5 features proposed — $4.4–6.7M uplift, ethos-compliant"
+}
+You said:
+Approve integration no json needed at this time
+You said:
+What’s my total presale hours input
+You said:
+My hours went down drastically, i thought with all the additions i would be much higher
+You said:
+What do the deferred features bring to the valuation for the 50+ extra hours
+You said:
+Can i have something other than esg tracker? What is something just as qualifying but not idealogical 
+You said:
+Let’s do all 4, since the reduction of my time input, i have room. Unless there are higher value added items i needed to attend to
+You said:
+Yes
+You said:
+So where does my current net valuation potential sit
+You said:
+And so far no other major features are missing that would make the company look foolish or behind
+You said:
+Why is this deferred? How much of my time would it be?
+
+Voice / Vision / UX Frontier
+
+You said:
+Lets try for it but it will still be lower priority 
+You said:
+So this puts me at about 45m net?
+You said:
+So if 45m is the net, what is the gross sale price
+You said:
+Sounds good, i will still want to talk in net until the bidding starts as i will want to know what number i am putting out there 
+You said:
+It has come a long way from the 8-10m not that long ago
+You said:
+Ok, as an advisor, is there anything i am overlooking when thinking of my readiness to start the deep work? Regarding structure, focus, features that customers want i may be missing, where the trend is headed, etc
+
+Basically, i have time until my computer gets here so evaluating and strengthening this on my phone is what i have this week
+You said:
+Thoughts on this?
+
+Larry Ellison $ORCL stressed that AI models perform at their best when trained on privately owned data—not just the public web data used by GPT, Grok, Llama, and others.
+
+That’s why companies like $HIMS, $DUOL, $LMND are set to win.
+
+Proprietary data is the real competitive edge.
+
+ChatGPT can’t match that
+You said:
+Isn’t this kind of the plan to create my own version of notebook llm or is that different
+You said:
+And when it is ready this would be worth a lot too Heritage Intelligence Layer,
+You said:
+Sounds good
+You said:
+Ok since pre sale seems relatively tight let’s focus a bit post sale. Regarding the mobility fleet…is Tesla renting their vehicles and robots? Is this going to ruin opportunities like mobility fleet?
+You said:
+I still think i would like to have the chauffeur angle where the taxi and Optimus are a package. They go with the elderly to help shop go to the doctor, the disabled veteran, women roommates that just want to be safe, people going out on the town that want to feel safe, etc
+You said:
+Does this change the roi net projections mentioned earlier
+You said:
+Let us think of a better name than this for the service, i don’t want it to feel like an old folks joke with assisted living 
+You said:
+I feel like guardian goes in the militant vein i am trying to stay away from. Does something like concierge make sense 
+You said:
+I am still not seeing it… lets see a name that fits heritage, concierge, tour guide, security without feeling gov or militant, assistance without making people feel helpless, we are along for their journey and just trying to alleviate their extra burdens so they can be in the moment and focus on living and enjoyment getting the things they need, getting to their appointment on time without the added stress etc  
+You said:
+What are some more in this vein Hearthbound Concierge
+You said:
+What about Heritage Lux
+You said:
+Which would test better between these.
+
+Heritage Concierge
+
+Heritage Concierge Lux
+
+Hearthbound Concierge
+
+Hearthbound Concierge Lux
+
+Or maybe the name is whiynout Lux and “The Lux” is an upgraded version for those extra special occasions
+You said:
+Approved
+You said:
+How does this clarification and naming, where the company fits with teslas plans etc impact the potential net revenue
+You said:
+How much is the brand worth itself?
+
+What if there is a line specifically for elderly homes, special needs, etc and maybe government would help make it cheaper for them?
+You said:
+Are there any post sale businesses that are yet to be clearly defined
+You said:
+Lets start with heritage press, as my advisor give me a recommendation with pros and cons roi etc.
+
+Then we can move down the list in priority of potential and follow the same format
+You said:
+Oops, just realized i accidentally brought heritage master items here. Is there an issue with any info missing? Do i need a json to bring info back to the master? Bring a json here and make this the master? No issue and everything is still known by got between threads
+
+ChatGPT can make mistakes. Check important info.

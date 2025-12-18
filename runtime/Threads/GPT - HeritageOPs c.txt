@@ -1,0 +1,181 @@
+This is the new heritageops thread
+
+{
+  "meta": {
+    "title": "HeritageOps_Dev",
+    "version": "2025-10-29-v2.0",
+    "parent_master": "Heritage Master 5",
+    "created_at_ET": "2025-10-29",
+    "mode": "Realism — conservative, probability-weighted",
+    "purpose": "Pre-licensing build-out of the multi-agent operating system (HeritageOps) with Zero-Trust access, audit-ready logs, and ROI auto-roll; prepared for client deployment packages."
+  },
+
+  "phase": "Pre-Licensing Build → System Rehearsal → Pilot Licensing",
+  "objective": "Stand up a minimal but auditable HeritageOps stack (n8n + cognitive layer + dashboards) that routes tasks through Gemini → GPT → Claude → Grok with safe access and measurable ROI.",
+
+  "milestones_30d": [
+    { "id": "HO-1", "desc": "Controlled Collaboration Setup Guide v1 finalized (roles, key mgmt, revocation)", "eta_ET": "2025-11-05" },
+    { "id": "HO-2", "desc": "ROI auto-roll from live apps into Heritage Master Dashboard (events, KPIs)", "eta_ET": "2025-11-10" },
+    { "id": "HO-3", "desc": "Agent templates + SOPs packaged for licensing (EA/Growth/MO/FinOps/Security)", "eta_ET": "2025-11-12" },
+    { "id": "HO-4", "desc": "n8n backbone online with Discord command router and audit IDs", "eta_ET": "2025-11-08" },
+    { "id": "HO-5", "desc": "MCP-ready interfaces scoped for applicable agents; AgentKit optional layer wired", "eta_ET": "2025-11-14" }
+  ],
+
+  "time_budget": {
+    "hours_per_week_cap": 30,
+    "structure": "Deep Work Bundles for integrations/infra; Bite-Sized for approvals and copy edits",
+    "guardrail": "No scope growth until ROI events are flowing and audit checks pass"
+  },
+
+  "architecture": {
+    "mantra": "Gemini = senses → GPT = brain → Claude = conscience → Grok = hands",
+    "layers": {
+      "automation_backbone": {
+        "platform": "n8n",
+        "roles": ["Scheduling", "ETL/ELT for ROI events", "Discord/HTTP command intake", "Credential proxying (no raw keys in nodes)"]
+      },
+      "cognitive_layer": {
+        "agentkit": { "status": "optional_active", "role": "cognitive_router", "notes": "Use for complex reasoning chains; n8n remains source-of-truth for orchestration" },
+        "mcp_ready": true
+      },
+      "data": {
+        "events_bus": "Firebase/Firestore collections + Cloud Functions",
+        "dashboards": ["Heritage Master Dashboard (ROI auto-roll)", "n8n execution logs"],
+        "storage": "Firebase Storage (artifacts), Sheets (ops summaries)"
+      }
+    }
+  },
+
+  "security": {
+    "framework": "Controlled Collaboration — Zero-Trust, Least Privilege, Revocation Readiness",
+    "access_levels": {
+      "L0": "Owner — Thom Van (admin, billing, data keys)",
+      "L1": "AI Agents (proxied, sandboxed via n8n/AgentKit)",
+      "L2": "Contractors (temporary write, milestone-scoped)",
+      "L3": "Auditors/Viewers (read-only dashboards)"
+    },
+    "policies": {
+      "key_management": "Env vars in platform secrets; rotate quarterly or on incident",
+      "secrets_handling": "No keys in code; per-workflow scoped credentials; least privilege",
+      "revocation": "One-click disable of tokens/agents; disable contractor accounts post-milestone"
+    },
+    "audit": {
+      "trace_ids": "Request/Run IDs propagate across Discord → n8n → AgentKit → Cloud Functions",
+      "ledgers": ["Firebase Audit Logs", "n8n execution logs", "HeritageOps ROI ledger"],
+      "export": "Weekly audit snapshot for rehearsal reports"
+    }
+  },
+
+  "repositories": {
+    "monorepo": "heritageops-core",
+    "packages": [
+      "agents/ea_core",
+      "agents/growth",
+      "agents/mo",
+      "agents/finops",
+      "agents/security",
+      "workflows/n8n_router",
+      "dashboards/roi_rollup",
+      "docs/controlled_collab"
+    ]
+  },
+
+  "workflows": {
+    "intake": {
+      "discord_commands": ["!core", "!growth", "!mo", "!finops", "!security", "!build"],
+      "router_logic": "Parse → classify (reasoning vs automation) → AgentKit for reasoning → n8n default route otherwise"
+    },
+    "roi_pipeline": {
+      "events": ["visit", "quiz_complete", "cta_click", "email_capture", "invite_sent", "show", "no_show", "reschedule"],
+      "rollup": "Daily → weekly aggregates; auto-roll to Master Dashboard"
+    }
+  },
+
+  "agents": [
+    { "name": "EA_Core", "purpose": "Task triage, scheduling, follow-ups", "owner": "!core", "mcp_ready": true },
+    { "name": "Growth", "purpose": "Acquisition experiments, list-build support", "owner": "!growth", "mcp_ready": true },
+    { "name": "MO", "purpose": "Ops runbooks, checklists, rehearsal reports", "owner": "!mo", "mcp_ready": true },
+    { "name": "FinOps", "purpose": "Tagging schema, cash reports, ROI pacing", "owner": "!finops", "mcp_ready": true },
+    { "name": "Security", "purpose": "Access reviews, secret rotation reminders, audit snapshots", "owner": "!security", "mcp_ready": true }
+  ],
+
+  "observability": {
+    "logging": ["Firebase Audit Logs", "Cloud Function logs with request IDs", "n8n execution logs"],
+    "metrics": ["Event throughput", "Task SLA adherence", "Error rate per workflow", "ROI event completeness %"],
+    "dashboards": ["Heritage Master Dashboard", "n8n built-in", "Lightweight Sheets ops view"]
+  },
+
+  "features_scope": {
+    "system_rehearsal": {
+      "targets": ["Stillhouse MVP", "Leroy Heritage App MVP"],
+      "checks": ["Request IDs present", "ROI events captured", "Audit snapshot exported"]
+    },
+    "delegation_kit": {
+      "contents": ["GPT vs VA Guide", "Task Handoff Table (SOP M1)", "Escalation Logic Tree", "Role Handoff Trigger Template (W12)"],
+      "format": "JSON + Docs for import into ops stack"
+    },
+    "controlled_collab_docs": {
+      "artifacts": ["Access matrix", "Revocation playbook", "Contractor onboarding mini-SOP", "Key rotation checklist"]
+    }
+  },
+
+  "licensing_package": {
+    "sku": "HeritageOps Lite (Pilot)",
+    "includes": ["Agent templates (EA/Growth/MO/FinOps/Security)", "n8n router workflows", "ROI dashboard bundle", "Controlled Collaboration guide"],
+    "excludes": ["Custom integrations beyond Firebase/n8n baseline", "On-prem deployments"],
+    "pricing_note": "Realism mode — defer enterprise promises; pilot pricing validated post-2 successful rehearsals"
+  },
+
+  "validation_plan": {
+    "pipeline": ["Rehearsal with Stillhouse", "Rehearsal with Leroy Heritage App", "Internal audit review", "Pilot client dry run"],
+    "success": ["100% workflows carry trace IDs", "≥ 95% ROI events recorded within 24h", "Audit snapshot weekly with zero critical gaps"]
+  },
+
+  "kpis_go_gates": {
+    "roi_event_completeness": "≥ 95% (Go) / 90–94% (Watch) / < 90% (Pivot)",
+    "audit_snapshot_pass": "No critical gaps; ≤ 2 minor findings (Go)",
+    "secrets_rotation": "Quarterly or per-incident; overdue = Pivot",
+    "ops_sla": "≥ 90% tasks completed within defined SLA windows"
+  },
+
+  "dependencies": [
+    "Stillhouse MVP learnings",
+    "Leroy Heritage App MVP ROI stream",
+    "Controlled Collaboration Setup Guide v1",
+    "QuickBooks FinOps tagging (for revenue/cost mapping)",
+    "Gemini → GPT → Claude → Grok audit relay"
+  ],
+
+  "expected_outputs": {
+    "platform": "Operational HeritageOps stack with auditable multi-agent loop",
+    "docs": "Controlled Collaboration v1, Delegation Kit assets, runbooks",
+    "metrics": ["Trace ID coverage %", "ROI event completeness %", "n8n error rate", "Weekly audit pass/fail"]
+  },
+
+  "owners": {
+    "core": "!core",
+    "growth": "!growth",
+    "mo": "!mo",
+    "finops": "!finops",
+    "security": "!security",
+    "build": "!build"
+  },
+
+  "status": "🟢 Active — Pre-licensing asset prep with System Rehearsal alignment (Realism Mode)"
+}
+You said:
+What is the current list of agents that make heritageops
+You said:
+I thought there were a lot more agents? What about the troubleshooting agent
+You said:
+Yes
+You said:
+I don’t need a json as this is already the heritageops thread
+You said:
+I want the full list identified always, the can be tagged deferred or phased and in order of priority if more clear but also keep the AI engine stated
+You said:
+What training is needed, and how does this training get transferred once created in n8n etc
+You said:
+How much time is this effort and where does it fit in the overall schedule
+
+ChatGPT can make mistakes. Check important info.

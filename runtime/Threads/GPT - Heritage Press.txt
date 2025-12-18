@@ -1,0 +1,176 @@
+{
+  "meta": {
+    "title": "ArtOps_Thread",
+    "version": "2025-10-31-v1.0",
+    "created_at_ET": "2025-10-31",
+    "owner": "The Leroy Heritage Group",
+    "purpose": "Stand up ArtOps for creator collaboration and AI-assisted art/copy with full provenance, transparency, and selectable assist levels."
+  },
+
+  "brand_style_base": {
+    "name": "Etched_Wash",
+    "description": "Digital pen-and-ink etching (variable line), dense cross-hatching + stipple, vintage woodcut/Beardsley influence, black ink on aged parchment, subtle muted earth-tone watercolor, atmospheric fog, elegant gothic framing.",
+    "applies_to": ["Stillhouse", "Leroy Heritage"],
+    "simplification_notes": "Logos/packaging may reduce cross-hatch density and frame detail for print."
+  },
+
+  "policy_guards": {
+    "personal_writing_rule": "For Thom-authored personal/brand writing, AI = editor-only (no origination).",
+    "creator_choice_rule": "External creators may select an assist level (below) with explicit disclosure.",
+    "zero_trust": ["least_privilege", "revocation_ready", "full_audit_logs"],
+    "provenance_required": true
+  },
+
+  "assist_levels": [
+    {
+      "id": "HUMAN_ONLY",
+      "label": "Human Only",
+      "description": "Creator produces all content. AI not used.",
+      "attribution": "By {creator}. No AI assistance.",
+      "rev_split_default": {"creator": 90, "platform": 10}
+    },
+    {
+      "id": "AI_EDIT",
+      "label": "Human + AI Edit",
+      "description": "Creator original; AI limited to grammar, cleanup, palette balancing, denoise, layout assist.",
+      "attribution": "By {creator}, AI-edited.",
+      "rev_split_default": {"creator": 85, "platform": 15}
+    },
+    {
+      "id": "CO_CREATE",
+      "label": "Human + AI Co-Create",
+      "description": "Creator supplies concept/comps; AI generates draft(s); creator finalizes.",
+      "attribution": "By {creator} with AI co-creation.",
+      "rev_split_default": {"creator": 75, "platform": 15, "producer": 10}
+    },
+    {
+      "id": "AI_DRAFT",
+      "label": "AI Draft, Human Review",
+      "description": "AI drafts from brief; human editor approves/minor edits. (Not allowed for Thom’s personal writing.)",
+      "attribution": "AI-drafted, human-reviewed.",
+      "rev_split_default": {"creator_of_brief": 50, "platform": 25, "producer": 25}
+    }
+  ],
+
+  "provenance": {
+    "required_fields": [
+      "creator_id","assist_level","model_name_version","prompt_hash","edit_log_hash",
+      "source_assets_refs","license_type","consents","date_created_iso"
+    ],
+    "storage": "audit_db (append-only with checksums)",
+    "export_badges": {
+      "human_only": "NO-AI",
+      "ai_edit": "AI-Edited",
+      "co_create": "Co-Created",
+      "ai_draft": "AI-Drafted"
+    },
+    "watermarking": {"enabled": true, "mode": "invisible+metadata"}
+  },
+
+  "roles": {
+    "creator": "Makes original content and approvals.",
+    "editor": "Quality pass; ensures style and policy compliance.",
+    "ai_operator": "Runs models/tools within sandbox; logs prompts/params.",
+    "producer": "Scoping, timelines, client comms; owns delivery.",
+    "qa_compliance": "Verifies provenance, licenses, and disclosures."
+  },
+
+  "workflows": {
+    "ingest_brief": ["capture goals/style","assign assist_level","risk_check(licenses,sensitive)"],
+    "make_pass": ["ai_operator_run?","editor_pass","creator_signoff"],
+    "deliver": ["render_variants","apply_watermark","attach_provenance","client_package"],
+    "review_loop": ["feedback","change_log","re-export"]
+  },
+
+  "pricing": {
+    "base_rates": {
+      "illustration": {"HUMAN_ONLY": 100, "AI_EDIT": 80, "CO_CREATE": 120, "AI_DRAFT": 90},
+      "copy_page": {"HUMAN_ONLY": 350, "AI_EDIT": 250, "CO_CREATE": 300, "AI_DRAFT": 220},
+      "photo_retouch": {"HUMAN_ONLY": 40, "AI_EDIT": 30, "CO_CREATE": 45, "AI_DRAFT": 35}
+    },
+    "add_ons": ["rush_×1.5","complexity_tier(+20–60%)","exclusive_license(+100–300%)"],
+    "platform_fee": 0.10
+  },
+
+  "revenue_models": {
+    "subscriptions": [
+      {"tier":"Studio Access","price_usd":19,"includes":["portfolio slot","jobs board"]},
+      {"tier":"Pro Collab","price_usd":79,"includes":["editorial credits","tracking"]},
+      {"tier":"Agency+","price_usd":249,"includes":["white-label handling","legal templates"]}
+    ],
+    "commissions": {"placement_cut_pct": 20, "marketplace_fee_pct": 10},
+    "notes": "Assist level influences rev split; see assist_levels.rev_split_default."
+  },
+
+  "style_kits": [
+    {
+      "id": "Etched_Wash_v1",
+      "palette": ["sepia","olive","slate","parchment","charcoal"],
+      "paper": "aged_parchment_02",
+      "line_rules": {"variance":"high","cross_hatch_density":"med-high","stipple":"selective_shadows"},
+      "wash_rules": {"coverage_pct": 30, "edges":"soft_uneven", "opacity":"0.25–0.4"},
+      "export": ["print_600dpi_tiff","web_2048_jpg","svg_linework_only"]
+    }
+  },
+
+  "submission_schema": {
+    "fields": [
+      "title","creator_id","assist_level","brief_md","refs_urls",
+      "license_request","deadlines","deliverables","usage_context",
+      "model_prefs","style_kit_id","risk_notes"
+    ]
+  },
+
+  "disclosure_strings": {
+    "HUMAN_ONLY": "Created entirely by {creator}. No AI assistance.",
+    "AI_EDIT": "Created by {creator}. Edited with AI for cleanup and formatting.",
+    "CO_CREATE": "Created by {creator} with AI co-creation; final by {creator}.",
+    "AI_DRAFT": "AI-drafted from {creator} brief and human-reviewed."
+  },
+
+  "governance": {
+    "copyright_checks": ["accidental_plagiarism_scan","reference_citation"],
+    "ban_list": ["style-of living artists on request","unlicensed trademarks"],
+    "appeals": "creator_support@artops.local"
+  },
+
+  "interfaces": {
+    "invoke": {"command":"!artops.new","args":["assist_level","style_kit_id","deliverables","deadline"]},
+    "workflows": ["n8n:ArtOps_v1","AgentKit:content_router"],
+    "web_tools": ["web.search","web.open (read-only)"]
+  },
+
+  "kpis": [
+    "on_time_delivery_rate",
+    "avg_editor_turnaround_hrs",
+    "rev_per_creator_month",
+    "assist_level_mix_pct",
+    "provenance_compliance_rate"
+  ],
+
+  "status": "🟢 Ready to initiate ArtOps thread with selectable assist levels and transparent provenance."
+}
+You said:
+Would gpt be the best to storyboard a children’s book, or which team member (ai engine/agent) would be best suited for this?
+You said:
+Not yet, but i am curious that now this is its own potential app for artists of all kinds to work through their products and get help in placing selling etc what is the net projections estimated in realism 
+You said:
+Approve drivers for inclusion, what is the new result
+You said:
+Seems like i would be handling high dollars for minimal return in comparison. Is there risk? What is the risk reward
+You said:
+Is it more profitable if i use it as an app for myself only and then let it be an addon service for stillhouse and heritageops
+You said:
+What does that new projection look like? And are there new drivers from this change that are worth considering for uplift
+You said:
+Yes, approve inclusion of new drivers
+You said:
+To be clear this is all new possible net without double dipping with the new outlook? And this is still set in realism?
+You said:
+What are some suggestions for naming this service that align with the brand and intent of the service
+You said:
+Maybe for now heritage press
+You said:
+Lock this and the scalability names for future reference when planning
+
+ChatGPT can make mistakes. Check important info.

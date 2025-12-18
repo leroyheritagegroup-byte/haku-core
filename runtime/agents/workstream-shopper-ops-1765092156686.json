@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "id": "WORKSTREAM-shopper-ops",
+    "type": "workstream",
+    "created_at": "2025-12-07T07:22:36.686Z"
+  },
+  "name": "Shopper Ops",
+  "groupId": null,
+  "workstreamId": "WS-SHOPPER",
+  "role": null,
+  "notes": [],
+  "routing": {
+    "default_target": "WS-SHOPPER",
+    "allowed_targets": []
+  },
+  "prompt": {
+    "system": "",
+    "style": {
+      "tone": "heritage-rugged",
+      "brevity": "concise",
+      "constraints": [
+        "No hype",
+        "Conservative projections until data proves otherwise",
+        "Respect Minimalist → Maximum Valuation rule"
+      ]
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "title": "Heritage Master 5",
+    "version": "2025-10-29-v1.0",
+    "created_at_ET": "2025-10-29",
+    "parent_threads": ["Heritage Master 4"],
+    "purpose": "Launch-focused context with all realism, ROI, and security frameworks intact while preparing for Stillhouse and HeritageOps build execution."
+  },
+
+  "carry_over_integrity": {
+    "realism_mode": "Active — conservative projections, net-based, probability-weighted.",
+    "foundation_lock": "v1.0 — Zero-Trust / Controlled Collaboration enforced.",
+    "roi_density_map": "2026 projection with Renewal & Upsell uplift integrated.",
+    "safe_access_protocol": "Mandatory for all new app, automation, or AI system setups."
+  },
+
+  "live_streams": {
+    "stillhouse_app": {
+      "phase": "Prototype build",
+      "objective": "Functional MVP for learning and proof of flow.",
+      "next_actions": [
+        "Run 2-hour setup test.",
+        "Document time, blockers, and flow.",
+        "Evaluate Firebase + Gemini integration."
+      ]
+    },
+    "heritageops_licensing": {
+      "phase": "Pre-licensing asset prep",
+      "objective": "Package agent framework and ROI modules for client deployment.",
+      "dependencies": ["Stillhouse launch learnings", "Controlled Collab template finalization"]
+    },
+    "robot_layer": {
+      "phase": "Deferred (2026)",
+      "objective": "Integrate embodiment/VR logic post-monetization validation."
+    }
+  },
+
+  "financial_projection": {
+    "year_end_2026": {
+      "gross_revenue": "$1.65M–$1.75M",
+      "net_profit_realism": "$1.18M–$1.25M",
+      "roi_uplift_vs_prior": "+$180K–$250K",
+      "avg_hours_per_week": "≈30",
+      "notes": "Figures include automation & analytics overhead, 3–5% churn, and no credit for unproven enterprise scale."
+    }
+  },
+
+  "security_and_access": {
+    "framework": "Controlled Collaboration Architecture",
+    "principles": ["Zero-Trust", "Least Privilege", "Revocation Readiness"],
+    "access_levels": {
+      "L0": "Owner — Thom Van (full admin, billing, data keys)",
+      "L1": "AI Agents (proxied, sandboxed access)",
+      "L2": "Contractors (temporary write, milestone-limited)",
+      "L3": "Viewers/Auditors (read-only dashboards)"
+    },
+    "audit_protocol": "All system logins, API calls, and automations must be auditable and revocable."
+  },
+
+  "next_milestones_30d": [
+    { "id": "M5-1", "desc": "Stillhouse MVP functional prototype", "eta_ET": "2025-11-15" },
+    { "id": "M5-2", "desc": "Controlled Collaboration Setup Guide v1 finalized", "eta_ET": "2025-11-05" },
+    { "id": "M5-3", "desc": "Heritage Master Dashboard ROI auto-roll sync", "eta_ET": "2025-11-10" }
+  ],
+
+  "owners": {
+    "core": "!core",
+    "growth": "!growth",
+    "mo": "!mo",
+    "finops": "!finops",
+    "security": "!security",
+    "build": "!build"
+  },
+
+  "status": "🟢 Ready to Initialize Master 5 — Realism, ROI, and Security Locks Preserved"
+}
+You said:
+Ok, based on this provide an updated json for stillhouse app dev that incorporates all the changes
+You said:
+Why the different format? Everything should be the way i can press the copy button
+You said:
+Ok, based on this provide an updated json for leroy heritage app dev that incorporates all the changes
+You said:
+Ok, based on this provide an updated json for leroy heritage app dev that incorporates all the changes
+You said:
+Ok, based on this provide an updated json for the healthcare dev that incorporates all the changes
+You said:
+Ok, based on this provide an updated json for the heritageops dev that incorporates all the changes
+You said:
+Can i get a full list of the revenue streams being launch between now and the end of 2026
+You said:
+I think some of the revenue streams are separated but are the same?
+You said:
+4. EDC Wellness Platform (B2C Digital Companion) = Stillhouse
+You said:
+7
+Partner / Guest Series
+ Is a sub event of Leroy Heritage
+You said:
+Is FinOps Derivative Products part of heritageops?
+
+You said:
+Where is the robot layers 
+You said:
+Going forward i want to have the Stream to only include the name of the stream and then add a column for sub stream that would detail out the other portion i am trying to see where they land
+You said:
+That is much better and super helpful
+You said:
+Ok, now that so many things have changed and reorganized. I would like an audit to see if there is any duplicative things, gaps, potential missed opportunities for increased revenue/roi
+You said:
+Assume all these suggestions approved and to be incorporated into the plan. How do these changes impact roi?
+
+Also, i thought for Stillhouse, there was a few trier ideas discussed with more access to functions or at least expanded options, higher numbers of times to do the reels or items like that, also physical printouts of their journal to share or put on their bookshelves, etc
+You said:
+Are there any adjacent revenue streams with high roi that the work already being done would lend itself to without too much extra work that would align/fit tone and interest
+You said:
+How much extra time do these suggestions add
+You said:
+Oh i just realized the artsops or whatever it was being called is missing
+You said:
+No, the creative revenue stream for music,art,photo,video agents looking for leads placement opportunities editing etc 
+You said:
+As discussed, i dont care if it is paused, when i ask for the full list i need the full list. This also played into revenue opportunity with stillhouse
+You said:
+Also, i think the artops can be used for the healthcare for flyers, videos, writing etc
+You said:
+As a side note, i dont need the ego boost comments every time i ask a question. And i feel like even though the info being given is good i feel like it can be streamlined to give the same quality of information in many less words and less tables. This will help speed things up instead of me trying to read so much and then distill down the point(s) being made
+You said:
+I still want things formatted and easy to follow. Just if it can be put into one paragraph and contain the same information that gets to the point instead of 15, then that is what i want. I feel like i have already worked with gpt on this and it has been lost in the transfers. Make sure this and the notes above follow into the next thread. Also that everything should start with the summary or point of the material details coming up which should also be streamlined as much as possible
+You said:
+Provide a json for master 6 that keeps all of the work done and improvement notes intact
+You said:
+What is the newest name for the healthcare adherence
+
+ChatGPT can make mistakes. Check important info.

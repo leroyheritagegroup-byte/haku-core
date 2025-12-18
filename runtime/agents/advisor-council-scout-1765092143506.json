@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "id": "ADVISOR-council-scout",
+    "type": "advisor",
+    "created_at": "2025-12-07T07:22:23.506Z"
+  },
+  "name": "Council Scout",
+  "groupId": "H-COUNCIL",
+  "workstreamId": null,
+  "role": null,
+  "notes": [],
+  "routing": {
+    "default_target": "H-COUNCIL",
+    "allowed_targets": []
+  },
+  "prompt": {
+    "system": "",
+    "style": {
+      "tone": "heritage-rugged",
+      "brevity": "concise",
+      "constraints": [
+        "No hype",
+        "Conservative projections until data proves otherwise",
+        "Respect Minimalist → Maximum Valuation rule"
+      ]
+    }
+  }
+}

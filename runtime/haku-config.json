@@ -1,0 +1,20 @@
+{
+  "default_model": "gpt-4o-mini",
+  "models": {
+    "exec": "gpt-4o",
+    "council": "gpt-4o-mini",
+    "merge": "gpt-4o"
+  },
+  "advisor_groups": ["H-EXEC", "H-COUNCIL", "H-ALL"],
+  "workstreams": [
+    "WS-SHOPPER",
+    "WS-STILLHOUSE",
+    "WS-HEALTHCARE",
+    "WS-ROLLOUT",
+    "WS-CREATIVEOPS"
+  ],
+  "token_budget": {
+    "daily_usd_default": 10,
+    "monthly_usd_cap": 150
+  }
+}

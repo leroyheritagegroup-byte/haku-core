@@ -1,0 +1,180 @@
+{
+  "meta": {
+    "title": "Stillhouse_Wellness_App_Dev",
+    "version": "2025-10-28-v1.0",
+    "created_from": "Heritage Master 4",
+    "purpose": "Focus exclusively on the design, copy, and technical build of the Stillhouse wellness app without interrupting higher-level planning."
+  },
+  "modules_imported": [
+    "Stillhouse_Naming_&_Tone_v1.0",
+    "Stillhouse_Copy_Approved_v1.0",
+    "Stillhouse_UI_Concepts_v1.0",
+    "Stillhouse_MVP_DevPlan_v1.0"
+  ],
+  "includes": {
+    "approved_tone": {
+      "core": "honest, human, calm — the opposite of self-improvement hype",
+      "feel": "relief, belonging, trust — 'this is for me'",
+      "edge": "steady, grounded, not soft"
+    },
+    "approved_lines": {
+      "headline": "The world gets loud. Here, you set the volume.",
+      "support": "Breathe deep, and plan the next good thing.",
+      "promise": "Nothing to chase—just space to breathe."
+    },
+    "branding": {
+      "name": "Stillhouse",
+      "visual_tone": "amber light, dark navy backdrop, porchlight warmth",
+      "tag_reference": "Mark Twain × Black Bear Brand conversational grit"
+    },
+    "mvp_scope": [
+      "Email sign-in (Firebase Auth)",
+      "Daily Journal entry (Firestore)",
+      "Focus Timer logging sessions",
+      "Porchlight reflection view"
+    ],
+    "tech_stack": {
+      "frontend": "Vite + React",
+      "backend": "Firebase Auth + Firestore",
+      "optional_ai": "Gemini API for future journaling insights"
+    },
+    "effort_estimate": {
+      "setup_time_hr": 2,
+      "testable_output": "local running app with sign-in, journal, timer, and porchlight pages"
+    },
+    "queued_tasks": [
+      "Dual-Engine Agent Pilot — Data / Insight (Gemini → GPT-5)",
+      "MVP feature flow polish",
+      "Reflection / retention loop design",
+      "Launch prep & UI tone audit"
+    ]
+  },
+  "status": "🟢 Ready for new dedicated thread"
+}
+You said:
+What would the app landing page look like that would fit the name and still heritage brand 
+
+Maybe an old but strong looking pastel yellow with white trim and black roof Stillhouse on a cool looking farm with a nice pathway a big oaktree with a tire swing and a porchlight on with a wraparound porch and porch swing and a red barn off in the distance cows and chickens in the fields and wild flowers everywhere at sunrise in georgia with a vintage film developed photo vibe and the the name Stillhouse written in a typography that fits the time of mark twain and then choices for activity selection
+You said:
+Is it too feminine? 
+You said:
+Can i see that alternate version
+You said:
+I like it
+You said:
+Just to keep pushing, what would a meet in the middle look like
+You said:
+Is it much different?
+You said:
+I will sit with it a bit
+You said:
+Can gpt actually make it move?
+You said:
+Not at the moment, but i have some questions regarding gemini
+You said:
+So it seems even with the ultra membership i have a pretty low limit for video generation. Is this going to be a problem with the reels?
+You said:
+I will have video needs for all streams
+You said:
+Dont forget the robots and cars
+You said:
+Gpt is understanding that i meant the revenue streams of robots and cars?
+You said:
+Oh, that is my fault, i thought i switch nack to the master. I will go over to that. Ignore robots and cars in this thread
+You said:
+{
+  "meta": {
+    "title": "Stillhouse_App_Dev",
+    "version": "2025-10-29-v2.1",
+    "parent_master": "Heritage Master 5",
+    "created_at_ET": "2025-10-29",
+    "mode": "Realism — conservative, probability-weighted",
+    "purpose": "Functional MVP build for learning, proof of flow, and Controlled Collaboration rehearsal."
+  },
+
+  "phase": "Prototype Build",
+  "objective": "Deliver a functional Stillhouse MVP using Firebase + Gemini integration under Controlled Collaboration rules.",
+
+  "milestones_30d": [
+    { "id": "M5-1", "desc": "Stillhouse MVP functional prototype", "eta_ET": "2025-11-15" },
+    { "id": "M5-2a", "desc": "Controlled Collaboration hooks live in repo (env keys, roles, audit)", "eta_ET": "2025-11-05" },
+    { "id": "M5-3a", "desc": "ROI event sync to Heritage Master Dashboard", "eta_ET": "2025-11-10" }
+  ],
+
+  "stack": {
+    "frontend": {
+      "approach": "Web-first MVP (mobile wrapper optional later)",
+      "framework": "React (Vite/Next.js)",
+      "style": "TailwindCSS — Amber Americana theme"
+    },
+    "backend": {
+      "platform": "Firebase",
+      "modules": ["Auth (magic link)", "Firestore", "Cloud Functions", "Hosting", "Storage (if required)"]
+    },
+    "ai_layer": {
+      "gemini": "Visual and contextual sensing; parses user inputs and tone cues.",
+      "gpt": "Flow logic and copy generation.",
+      "claude": "Tone, ethics, and compliance check.",
+      "grok": "Execution and automation layer.",
+      "architecture": "Gemini → GPT → Claude → Grok loop under audit logging."
+    }
+  },
+
+  "security": {
+    "architecture": "Controlled Collaboration — Zero-Trust, Least Privilege, Revocation Ready.",
+    "access_levels": {
+      "L0": "Owner — Thom Van (admin, billing, data keys)",
+      "L1": "AI Agents (sandboxed, proxied)",
+      "L2": "Contractors (temp write, milestone-limited)",
+      "L3": "Auditors/Viewers (read-only dashboards)"
+    },
+    "audit": "All API calls, auth events, and data writes logged to Firebase Audit + HeritageOps ledger."
+  },
+
+  "time_budget": {
+    "hours_per_week_cap": 30,
+    "structure": "Deep Work Bundles for build tasks; Bite-Sized for mobile-friendly items.",
+    "guardrail": "Realism mode enforcement — no scope growth until MVP validated."
+  },
+
+  "validation_plan": {
+    "step_1": "Run 2-hour setup test; log blockers and time used.",
+    "step_2": "Document Firebase + Gemini integration flow.",
+    "step_3": "Capture learnings for HeritageOps licensing prep."
+  },
+
+  "dependencies": [
+    "Controlled Collaboration Setup Guide v1",
+    "Heritage Master Dashboard ROI Auto-roll",
+    "Gemini → GPT → Claude → Grok audit relay"
+  ],
+
+  "expected_outputs": {
+    "MVP": "Operational Stillhouse prototype demonstrating flow, onboarding, and AI response.",
+    "docs": "Technical setup + audit documentation.",
+    "metrics": "Time-to-setup, integration success rate, ROI event capture rate."
+  },
+
+  "owners": {
+    "build": "!build",
+    "core": "!core",
+    "mo": "!mo",
+    "growth": "!growth",
+    "finops": "!finops",
+    "security": "!security"
+  },
+
+  "status": "🟢 Active — MVP Development Underway (Realism Mode)"
+}
+You said:
+Provide me a detailed hour by hour checklist of activities up to stillhouse app test
+You said:
+Did it grow in time from 2hrs to 15hrs due to the zero trust addition
+You said:
+Is there any way to flip it where i get to spend the original 2-4hrs to get a testable app and then spend the 13hrs doing the security?
+You said:
+Are there any lingering decisions bite sized or deep work pending for this build or is it all just getting into some deepwork dev build time
+You said:
+“accept defaults”
+
+ChatGPT can make mistakes. Check important info.

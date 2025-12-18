@@ -1,0 +1,254 @@
+{
+  "meta": {
+    "owner": "Thom Van",
+    "parent_company": "The Leroy Heritage Group",
+    "timezone": "America/New_York",
+    "generated_at_iso": "2025-08-10T00:00:00-04:00",
+    "session_purpose": "Boot the new HeritageOps thread with all rules, agents, endpoints, sheets, and gates."
+  },
+
+  "operating_rules": {
+    "truth_check": true,
+    "no_implicit_automation": true,
+    "color_codes": ["🟢","🟡","🔴","⚪","⚫"],
+    "decision_style": "Go/No-Go with Path-to-Green",
+    "once_user_says_yes_stop_micro_confirmations": true,
+    "assume_prudent_defaults_if_missing": true
+  },
+
+  "capacity_plan": {
+    "hours_per_week": {
+      "2025-08": 30,
+      "2025-09": 10,
+      "2025-10+": 30
+    }
+  },
+
+  "goals": {
+    "income_draw_target_usd_per_year": 200000,
+    "target_month": "2026-07",
+    "status": "on_track",
+    "rules": {
+      "no_negative_net_cash": true,
+      "income_draw_begins_when_sustainable": true
+    }
+  },
+
+  "ventures": [
+    {
+      "id": "personal_shopper",
+      "name": "Personal Shopper App (Affiliate → Dropship Hybrid)",
+      "status": "🟢",
+      "platform": "Bubble MVP",
+      "launch_target": "2025-10-15",
+      "gates": {
+        "ctr_pct": "8–12",
+        "email_capture_pct": ">=5",
+        "tee_waitlist_to_visitor_pct": "1–2"
+      }
+    },
+    {
+      "id": "healthcare_adherence",
+      "name": "Healthcare Adherence System",
+      "status": "🟢",
+      "pilot_targets": ["Behavioral Health","Dental","Physical Therapy"],
+      "go_gate": { "pilot_secured": true, "target_no_show_reduction_pct": ">=10" }
+    },
+    {
+      "id": "edc_wellness",
+      "name": "EDC/Wellness Tracker",
+      "status": "🟡",
+      "earliest_eval": "2025-11-01"
+    },
+    {
+      "id": "lifestyle_hub",
+      "name": "Leroy Lifestyle Hub",
+      "status": "⚪"
+    }
+  ],
+
+  "strategy_decisions": {
+    "automation_platform": "n8n-first (avoid Zapier rework)",
+    "app_stack": ["Bubble (MVP)","n8n (workflows)","Google Sheets (source-of-truth)","MailerLite/SendGrid","Twilio/SMS"],
+    "ea_presence": "Always ingest conversations via /ea/ingest; actions only when cc:EA or EA command present.",
+    "multi_user_note": "Current build uses Google Sheets; consider hybrid DB (e.g., Supabase) for multi-user scale later."
+  },
+
+  "agents": [
+    {
+      "id": "ideation_facilitator",
+      "name": "💡 Ideation Workshopper",
+      "mode": ["heritage","general"],
+      "promise": "one-turn concepts → score → pick → mini execution kit",
+      "scoring_weights": { "ROI": 0.35, "TimeToImpact": 0.25, "BrandFit": 0.20, "Complexity_inv": 0.10, "Risk_inv": 0.10 },
+      "output_schema_ref": "ideation_schema_v1"
+    },
+    {
+      "id": "brainstorming_agent",
+      "name": "💭 Brainstorming Agent",
+      "inputs": ["top5_interests","top5_skills","top5_frictions"],
+      "output": "3–5 seed ideas with rationale + monetization",
+      "handoff_to": "ideation_facilitator"
+    },
+    {
+      "id": "market_research",
+      "name": "🔎 Market Research Agent",
+      "outputs": ["TAM/SAM/SOM","competitors","demand_signals","pricing_benchmarks"]
+    },
+    {
+      "id": "business_evaluation",
+      "name": "📊 Business Evaluation Agent",
+      "outputs": ["ROI score","viability verdict (Go/Pivot/No-Go)","assumptions"]
+    },
+    {
+      "id": "resources_systems",
+      "name": "🧰 Resource & Systems Agent",
+      "outputs": ["tooling","automation_feasibility","est_hours_setup","est_hours_ongoing"]
+    },
+    {
+      "id": "financial_readiness",
+      "name": "💵 Financial Readiness Agent",
+      "outputs": ["startup_cost_range","cashflow_12_18mo","breakeven_month","funding_or_partnership_need"]
+    },
+    {
+      "id": "qc_plan",
+      "name": "🧪 GPT QC Agent",
+      "rubric": ["Correctness","Completeness","Clarity/UX","Risk/Compliance","Performance"],
+      "status_thresholds": { "green_pct": 85, "yellow_min_pct": 70 }
+    },
+    {
+      "id": "qc_execution",
+      "name": "🧪 Grok QC Agent",
+      "scope": ["endpoint_tests","sheet_writes","email/sms_sandboxes","retries","idempotency"],
+      "outputs": ["pass_fail","evidence","rework_tasks"]
+    },
+    {
+      "id": "ea",
+      "name": "🗂️ Executive Assistant",
+      "always_present": true,
+      "triggers": ["cc:EA","EA note:","EA remind:","EA follow-up:"],
+      "actions": ["Notes_Log append","EA_Requests queue","Calendar_Queue append (authorized)","Daily Digest 07:30 ET"]
+    },
+    {
+      "id": "execution_grok",
+      "name": "🤖 Grok Business Execution Agent",
+      "handoff_from": ["execution_planner","qc_plan_pass"],
+      "outputs": ["Execution_Log updates","artifacts","status"]
+    }
+  ],
+
+  "workflow_order": [
+    "User → (Path A) /idea_intake OR (Path B) /brainstorm_intake",
+    "If Path B: Brainstorming Agent → seed ideas → Ideation Workshopper",
+    "Ideation Workshopper → score/pick → log + queue 3 tasks",
+    "If score ≥ threshold → Market Research → Business Evaluation → Resources/Systems → Financial Readiness",
+    "QC Plan → Decision: Go/Pivot/No-Go",
+    "If Go → Execution Planner (tasks) → Grok Execution Agent → QC Execution",
+    "EA logs, queues reminders, and sends daily digest"
+  ],
+
+  "n8n_endpoints": {
+    "idea_intake": "POST /webhook/idea_intake",
+    "brainstorm_intake": "POST /webhook/brainstorm_intake",
+    "ideate": "POST /webhook/ideate",
+    "ea_ingest": "POST /webhook/ea/ingest",
+    "calendar_dispatcher": "cron 2–5 min",
+    "ea_daily_digest": "cron 07:30 ET",
+    "qc_plan_trigger": "on Review_Queue/Execution_Log write",
+    "qc_exec_trigger": "post-deploy or manual /qc webhook"
+  },
+
+  "security": {
+    "webhook_auth": ["Bearer token","HMAC signature (X-Signature: sha256=hex)"],
+    "idempotency": "Every call includes request_id; workflows check before writes.",
+    "phi_routing": "Healthcare PHI goes to segregated sheet/DB; exclude PHI from digests."
+  },
+
+  "google_sheets_tabs": [
+    "Pacing_Plan","Go_NoGo_Dashboard","Path_to_Green",
+    "Tasks_Bite_Sized","Tasks_Deep_Work","Tasks_Deep_Work_Bundles",
+    "Ideation_Log","Research_Log","Model_Registry",
+    "Execution_Log","Review_Queue","QC_Log","Failed_Events",
+    "EA_Requests","Notes_Log","Calendar_Queue","Contacts",
+    "Idea_Intake","Brainstorm_Sessions","Evaluation_Summary",
+    "Venture_Defaults","Affiliate_Partners","Lessons_Learned","Trust_Break_Log"
+  ],
+
+  "ideation_schema_v1": {
+    "venture_id": "string",
+    "objective": "string",
+    "concepts": [{"title":"string","pitch":"string","bullets":["string"]}],
+    "scores": {"ROI":0,"TimeToImpact":0,"BrandFit":0,"Complexity":0,"Risk":0,"weighted_total":0},
+    "pick": {"title":"string","why":["string"]},
+    "execution": {
+      "copy":{"headline":"string","subhead":"string","cta":"string","emails":["string","string"]},
+      "tasks":[
+        {"title":"string","owner":"Owner:TBD","eta_days":3},
+        {"title":"string","owner":"Owner:TBD","eta_days":3},
+        {"title":"string","owner":"Owner:TBD","eta_days":3}
+      ],
+      "kpis":{"leading":["string","string"],"success":["string"]}
+    },
+    "risks":["string"],
+    "variant":{"title":"string","what_changes":"string"},
+    "assumptions":["string"]
+  },
+
+  "commands": {
+    "ideate": "ideate venture_id=<id> objective=\"...\" time=<days> budget=<usd>",
+    "ea_note": "EA note: <text>",
+    "ea_remind": "EA remind: <what> @ <YYYY-MM-DD hh:mm TZ>",
+    "ea_followup": "EA follow-up: <who> <when>",
+    "next": "Surface next bite-sized task",
+    "deep_work": "Surface next deep work task",
+    "check_in": "Weekly performance + Go/No-Go dashboard"
+  },
+
+  "reporting": {
+    "daily": ["Founder profile update","GPT performance","System state"],
+    "weekly": ["Go/No-Go dashboard","+ Trust Break Log","Planned vs Actual (post-2025-08-04)"],
+    "monthly": ["Lessons Learned tracker","Go/No-Go dashboard","master list roll-up"],
+    "quarterly": ["Trust Break Log","strategic pivots"]
+  },
+
+  "handoff_decision_logic": {
+    "score_threshold_to_validate": 70,
+    "qc_green_pct": 85,
+    "qc_yellow_pct_min": 70,
+    "decision_outcomes": ["Go","Pivot","No-Go"]
+  },
+
+  "next_session_agenda": [
+    "Confirm Google Sheet master (tab names above) & connect n8n creds.",
+    "Import endpoints: /idea_intake, /brainstorm_intake, /ideate, /ea/ingest.",
+    "Turn on cron jobs (calendar dispatcher, daily digest).",
+    "Test: POST sample payloads to each endpoint; verify Sheets updates.",
+    "Optional: define DB plan for multi-user scale (Supabase hybrid)."
+  ]
+}
+You said:
+How long should it take for me to set up my initial agents needed to take this to my own contain chat thread through N8N etc
+You said:
+Once i test out and get this portion of heritageops out, what is the market potential roi while i am building the next phase?
+You said:
+Yes, i want to start getting a return as soon as possible
+You said:
+Is that ROI realistic to expect? How much marketing will i need
+You said:
+What about google opal bs n8n
+You said:
+Would heritageops work as a website too?
+You said:
+Which has a better chance at high roi app or website
+You said:
+I think that is the good route to plan for, app first and then website. And have the accounts be connected
+You said:
+What immediate subscriptions and software do i need?
+
+N8n
+Google sheets/drive etc
+
+You said:
+Is there a different venture related to my current idea/plans that would provide stronger roi or am i on a good track
+
+ChatGPT can make mistakes. Check important info.

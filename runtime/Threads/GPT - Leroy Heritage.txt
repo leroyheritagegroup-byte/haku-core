@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "title": "Leroy_Heritage_App_Dev",
+    "version": "2025-10-29-v2.0",
+    "parent_master": "Heritage Master 5",
+    "created_at_ET": "2025-10-29",
+    "mode": "Realism — conservative, probability-weighted",
+    "purpose": "Web-first Personal Shopper MVP with affiliate model, behavior-based loyalty, and Controlled Collaboration rehearsal."
+  },
+
+  "phase": "Prototype Build → System Rehearsal",
+  "objective": "Deliver a functional web MVP that proves quiz → result cards → affiliate click-through → list-build, with audit-ready logs and safe access.",
+
+  "milestones_30d": [
+    { "id": "LH-1", "desc": "Personal Shopper MVP (quiz + results + affiliate CTAs) running in staging", "eta_ET": "2025-11-12" },
+    { "id": "LH-2", "desc": "Controlled Collaboration hooks live (env keys, role gating, audit logs)", "eta_ET": "2025-11-05" },
+    { "id": "LH-3", "desc": "ROI event stream to Master Dashboard (visits, completes, CTR, email capture)", "eta_ET": "2025-11-10" },
+    { "id": "LH-4", "desc": "Behavior-based loyalty triggers online (Ember/Lookout/Backbone/Trailsetter)", "eta_ET": "2025-11-14" }
+  ],
+
+  "stack": {
+    "frontend": {
+      "approach": "Web-first MVP; mobile wrapper optional later",
+      "framework": "React via Vite (or Next.js static-first)",
+      "style": "TailwindCSS — Amber Americana",
+      "site_shell": "Squarespace 7.1 for brochure/SEO; app mounted under /app"
+    },
+    "backend": {
+      "platform": "Firebase",
+      "modules": ["Auth (magic link optional later)", "Firestore", "Cloud Functions", "Hosting", "Storage (if needed)"]
+    },
+    "integrations": {
+      "email": "MailerLite (abandon + reminder flows approved)",
+      "affiliates": ["Amazon/Impact/Rakuten (as applicable)"],
+      "analytics": ["Firebase Analytics", "privacy-safe client telemetry (minimal PII)"]
+    },
+    "ai_layer": {
+      "mantra": "Gemini = senses → GPT = brain → Claude = conscience → Grok = hands",
+      "roles": {
+        "gemini": "Lightweight parsing of quiz inputs and context",
+        "gpt": "Result-card copy and flow logic (brand tone locked)",
+        "claude": "Tone and policy validation",
+        "grok": "Scripting/automation assistance for ops"
+      },
+      "pattern": "Gemini → GPT → Claude → Grok loop with request IDs and audit"
+    }
+  },
+
+  "features_scope": {
+    "quiz": {
+      "status": "Approved structure; implement minimal question set",
+      "output": "Top 3 result cards + branded tee teaser"
+    },
+    "result_cards": {
+      "initial": [
+        "Leroy branded classic crew neck tee (Oatmeal/Olive/Charcoal) — teaser card",
+        "Flint and Tinder Waxed Trucker Jacket — affiliate",
+        "GORUCK GR1 Rucksack — affiliate"
+      ],
+      "layout": "Image, product name, 1-line description, 'Shop Now'; no loyalty banner on affiliate cards at launch"
+    },
+    "loyalty": {
+      "tiers": ["Ember", "Lookout", "Backbone", "Trailsetter"],
+      "logic": "Behavior-based triggers only (no purchase dependency at launch)",
+      "badge_assets": "Crest/Shield icon set — draft pending stable image pipeline"
+    },
+    "wellness_link": {
+      "mode": "Optional highlight-reel preview (EDC habits, ruck, checklists)",
+      "toggle": "User can disable gear suggestions fully"
+    },
+    "sales_posture": {
+      "bf_shift": "Black Friday converted to System Rehearsal (soft presence, list-build)",
+      "preorder": "Branded tee preorder allowed for all initially; communicate early-access tone"
+    }
+  },
+
+  "security": {
+    "architecture": "Controlled Collaboration — Zero-Trust, Least Privilege, Revocation Ready",
+    "access_levels": {
+      "L0": "Owner — Thom Van (admin, billing, keys)",
+      "L1": "AI Agents (proxied, sandboxed)",
+      "L2": "Contractors (temporary write, milestone-bound)",
+      "L3": "Viewers/Auditors (read-only dashboards)"
+    },
+    "audit": "All auth, API calls, function executions, and data writes logged to Firebase + HeritageOps ledger"
+  },
+
+  "time_budget": {
+    "hours_per_week_cap": 30,
+    "structure": "Deep Work Bundles for build/integrations; Bite-Sized for phone-friendly approvals",
+    "guardrail": "No scope growth until MVP KPIs cross Go thresholds"
+  },
+
+  "validation_plan": {
+    "setup_test": "2-hour install/integrations smoke test; record blockers and actual time",
+    "flow_proof": "Quiz → results → affiliate CTAs → email capture; verify ROI events",
+    "rehearsal_report": "Export KPIs + audit trail; capture lessons learned and logic breaks"
+  },
+
+  "kpis_go_gates": {
+    "quiz_ctr": "≥ 8–12% (Go)",
+    "email_capture_rate": "≥ 5% of visitors (Go)",
+    "tee_waitlist_to_visitor": "≥ 1–2% (Go)",
+    "wellness_opt_in": "≥ 25% of active shoppers in pilot",
+    "notes": "Watch/Pivot thresholds per Weekly Check-In standard"
+  },
+
+  "dependencies": [
+    "Controlled Collaboration Setup Guide v1",
+    "Heritage Master Dashboard ROI auto-roll",
+    "Abandon + reminder flows in MailerLite",
+    "Gemini → GPT → Claude → Grok audit relay"
+  ],
+
+  "expected_outputs": {
+    "mvp": "Operational shopper flow with affiliate CTAs and email capture",
+    "docs": "Setup guide, role/access matrix, and audit screenshots",
+    "metrics": ["CTR", "email capture", "quiz completion", "tee waitlist %"]
+  },
+
+  "brand_language": {
+    "tagline": "Built for those who move with purpose.",
+    "affiliate_bio": "Leroy Heritage helps you find gear built to be used, not displayed.",
+    "tone": "Rugged, heritage-inspired, respectful, plain-spoken"
+  },
+
+  "owners": {
+    "build": "!build",
+    "core": "!core",
+    "mo": "!mo",
+    "growth": "!growth",
+    "finops": "!finops",
+    "security": "!security"
+  },
+
+  "status": "🟢 Active — Web MVP in build, System Rehearsal posture (Realism Mode)"
+}
+You said:
+Why did this thread just repeat all the json? Shouldnt it have started this as the leroy heritage app dev thread with all the details intact
+You said:
+This is the new thread cant got just use the json above and correct this thread
+You said:
+I want to see the new plan, does this overlap with the stillhouse app dev tasks or is this taking place after
+You said:
+Yes
+You said:
+Are there any lingering decisions bite sized or deep work pending for this build or is it all just getting into some deepwork dev build time

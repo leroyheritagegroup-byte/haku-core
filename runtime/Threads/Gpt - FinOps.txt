@@ -1,0 +1,224 @@
+{
+  "meta": {
+    "title": "QuickBooks_FinOps_Kickoff",
+    "version": "2025-10-27-v1.0",
+    "created_by": "HeritageOps / Thom Van",
+    "timestamp_ET": "2025-10-27T12:58:00-04:00",
+    "purpose": "Start a QuickBooks thread to define books structure, tagging schema, and reporting for future analysis and ROI."
+  },
+
+  "company_profile": {
+    "entity_type": "LLC (single-member) — US",
+    "tax_basis": "Cash (switchable to Accrual once AR/AP volume justifies)",
+    "fiscal_year_end": "December",
+    "locations": ["Online", "Georgia_HQ", "MicroFarm/Workshop (future)"]
+  },
+
+  "chart_of_accounts": {
+    "assets_current": [
+      {"name": "Checking — Operating", "type": "Bank"},
+      {"name": "Savings — Tax Reserve", "type": "Bank"},
+      {"name": "Stripe Clearing", "type": "Other Current Asset"},
+      {"name": "Undeposited Funds", "type": "Other Current Asset"},
+      {"name": "Prepaid Software", "type": "Other Current Asset"}
+    ],
+    "assets_long_term": [
+      {"name": "Capitalized Equipment", "type": "Fixed Asset"},
+      {"name": "Accumulated Depreciation", "type": "Accumulated Depreciation"}
+    ],
+    "liabilities_current": [
+      {"name": "Credit Card — Operating", "type": "Credit Card"},
+      {"name": "Sales Tax Payable", "type": "Other Current Liability"},
+      {"name": "Deferred Revenue", "type": "Other Current Liability"}
+    ],
+    "equity": [
+      {"name": "Owner’s Equity", "type": "Owner's Equity"},
+      {"name": "Owner Draw/Distributions", "type": "Owner's Pay & Personal Expenses"},
+      {"name": "Retained Earnings", "type": "Retained Earnings"}
+    ],
+    "income": [
+      {"name": "Affiliate Commissions — Shopper", "type": "Income"},
+      {"name": "Licensing — HeritageOps", "type": "Income"},
+      {"name": "Healthcare Pilots/Service", "type": "Income"},
+      {"name": "EDC/Wellness Subscriptions", "type": "Income"},
+      {"name": "Dropship/Commerce Revenue", "type": "Sales of Product Income"},
+      {"name": "Workshops/MicroFarm Revenue (future)", "type": "Income"},
+      {"name": "Robotics/VehicleOps Revenue (future)", "type": "Income"}
+    ],
+    "cogs": [
+      {"name": "Affiliate Payouts/Rev Share", "type": "Cost of Goods Sold"},
+      {"name": "Dropship Product Costs", "type": "Cost of Goods Sold"},
+      {"name": "Payment Processing Fees (COGS)", "type": "Cost of Goods Sold"}
+    ],
+    "expenses_opex": [
+      {"name": "Software — OpenAI (GPT)", "type": "Software & Subscriptions"},
+      {"name": "Software — Anthropic (Claude)", "type": "Software & Subscriptions"},
+      {"name": "Software — xAI (Grok)", "type": "Software & Subscriptions"},
+      {"name": "Software — Google AI Studio (Gemini)", "type": "Software & Subscriptions"},
+      {"name": "Software — n8n/Automation", "type": "Software & Subscriptions"},
+      {"name": "Software — QuickBooks", "type": "Software & Subscriptions"},
+      {"name": "Software — MailerLite/ESP", "type": "Software & Subscriptions"},
+      {"name": "Software — Squarespace/Domain", "type": "Software & Subscriptions"},
+      {"name": "Software — Google Workspace", "type": "Software & Subscriptions"},
+      {"name": "Cloud/Hosting/Storage", "type": "Utilities"},
+      {"name": "Advertising & Promotion", "type": "Advertising"},
+      {"name": "Contractors/Assistants", "type": "Contractors"},
+      {"name": "Professional Fees — CPA", "type": "Legal & Professional Fees"},
+      {"name": "Professional Fees — Legal", "type": "Legal & Professional Fees"},
+      {"name": "Education/Training", "type": "Dues & Subscriptions"},
+      {"name": "Travel/Meals (50%)", "type": "Meals and Entertainment"},
+      {"name": "Office & Supplies", "type": "Office/General Administrative"},
+      {"name": "Insurance — Business", "type": "Insurance"},
+      {"name": "Health Insurance (owner)", "type": "Insurance"},
+      {"name": "Sales Tax Expense (adjustments)", "type": "Taxes & Licenses"},
+      {"name": "Bank & Processor Fees (OpEx)", "type": "Bank Charges"}
+    ]
+  },
+
+  "dimensions": {
+    "classes_workstreams": [
+      "AppSuite — Personal Shopper",
+      "AppSuite — Wellness/EDC",
+      "Healthcare Adherence",
+      "HeritageOps Licensing",
+      "Robotics/VehicleOps",
+      "Lifestyle Hub/Merch"
+    ],
+    "locations": ["Online", "Georgia_HQ", "MicroFarm/Workshop (future)"],
+    "projects_campaigns": [
+      "BF_2025_Rehearsal",
+      "Q1_2026_Licensing_Prep",
+      "Partner_Node_Framework",
+      "Gemini_Sensory_Pilot",
+      "RAG_Pipeline_v1"
+    ],
+    "tags_custom": {
+      "Agent": ["GPT", "Claude", "Grok", "Gemini"],
+      "ROI_Tier": ["Base", "Stretch", "Breakout"],
+      "Phase": ["R&D", "MVP", "Scale"],
+      "VendorType": ["SaaS", "AffiliateNet", "Dropshipper", "Contractor", "Utility"]
+    }
+  },
+
+  "mapping_guidelines": {
+    "membership_map_examples": [
+      {"vendor": "OpenAI", "account": "Software — OpenAI (GPT)", "class": "HeritageOps Licensing", "tag": {"Agent": "GPT", "Phase": "R&D"}},
+      {"vendor": "Anthropic", "account": "Software — Anthropic (Claude)", "class": "HeritageOps Licensing", "tag": {"Agent": "Claude", "Phase": "R&D"}},
+      {"vendor": "xAI", "account": "Software — xAI (Grok)", "class": "HeritageOps Licensing", "tag": {"Agent": "Grok", "Phase": "R&D"}},
+      {"vendor": "Google AI Studio", "account": "Software — Google AI Studio (Gemini)", "class": "AppSuite — Wellness/EDC", "tag": {"Agent": "Gemini", "Phase": "MVP"}},
+      {"vendor": "n8n", "account": "Software — n8n/Automation", "class": "HeritageOps Licensing", "tag": {"Phase": "R&D"}},
+      {"vendor": "MailerLite", "account": "Software — MailerLite/ESP", "class": "AppSuite — Personal Shopper", "project": "BF_2025_Rehearsal", "tag": {"Phase": "MVP"}},
+      {"vendor": "Squarespace", "account": "Software — Squarespace/Domain", "class": "AppSuite — Personal Shopper", "project": "BF_2025_Rehearsal"},
+      {"vendor": "Google Workspace", "account": "Software — Google Workspace", "class": "HeritageOps Licensing"}
+    ],
+    "revenue_map_examples": [
+      {"source": "Affiliate Payouts", "income_acct": "Affiliate Commissions — Shopper", "class": "AppSuite — Personal Shopper", "project": "BF_2025_Rehearsal"},
+      {"source": "Licensing", "income_acct": "Licensing — HeritageOps", "class": "HeritageOps Licensing", "project": "Partner_Node_Framework"}
+    ],
+    "cogs_rules": [
+      "Use COGS only for costs that scale with specific revenue (dropship product, rev-share fees).",
+      "Processor fees: If tied to a sale object, book to COGS; otherwise to Bank Charges (OpEx)."
+    ],
+    "capitalization_policy": {
+      "threshold_usd": 2500,
+      "examples_capitalize": ["Robotics hardware", "High-end computers", "Camera/production gear"],
+      "examples_expense": ["Keyboards/mice", "Cables/adapters", "Low-cost peripherals"]
+    }
+  },
+
+  "bank_rules_suggestions": [
+    {"contains": "OPENAI", "account": "Software — OpenAI (GPT)", "class": "HeritageOps Licensing", "tag.Agent": "GPT"},
+    {"contains": "ANTHROPIC", "account": "Software — Anthropic (Claude)", "class": "HeritageOps Licensing", "tag.Agent": "Claude"},
+    {"contains": "XAI", "account": "Software — xAI (Grok)", "class": "HeritageOps Licensing", "tag.Agent": "Grok"},
+    {"contains": "GOOGLE AI", "account": "Software — Google AI Studio (Gemini)", "class": "AppSuite — Wellness/EDC", "tag.Agent": "Gemini"},
+    {"contains": "N8N", "account": "Software — n8n/Automation", "class": "HeritageOps Licensing"},
+    {"contains": "MAILERLITE", "account": "Software — MailerLite/ESP", "class": "AppSuite — Personal Shopper", "project": "BF_2025_Rehearsal"},
+    {"contains": "SQUARESPACE", "account": "Software — Squarespace/Domain", "class": "AppSuite — Personal Shopper"}
+  ],
+
+  "vendors_seed": [
+    {"name": "OpenAI", "type": "SaaS"},
+    {"name": "Anthropic", "type": "SaaS"},
+    {"name": "xAI", "type": "SaaS"},
+    {"name": "Google AI Studio (Gemini)", "type": "SaaS"},
+    {"name": "n8n", "type": "SaaS"},
+    {"name": "Google Workspace", "type": "SaaS"},
+    {"name": "MailerLite", "type": "ESP"},
+    {"name": "Squarespace", "type": "Web/Domain"},
+    {"name": "Stripe", "type": "Processor"},
+    {"name": "Printful/Dropship Partner (placeholder)", "type": "Dropshipper"},
+    {"name": "CPA (placeholder)", "type": "Professional"}
+  ],
+
+  "reports_and_kpis": {
+    "standard_reports": [
+      "P&L by Class (Workstreams)",
+      "P&L by Project (Campaigns)",
+      "Expenses by Vendor",
+      "Cash Flow Statement",
+      "Balance Sheet"
+    ],
+    "custom_dashboards": [
+      "Monthly Net by Workstream (Classes)",
+      "Software Burn by Agent (Tags.Agent)",
+      "COGS vs Revenue % — Shopper",
+      "Licensing MRR/ARR — HeritageOps"
+    ],
+    "close_checklist_monthly": [
+      "Reconcile bank/credit cards",
+      "Review uncategorized transactions",
+      "Verify tag/class/project on all new entries",
+      "Accrue sales tax & adjust",
+      "Export snapshots to Sheets for FinOps agent"
+    ],
+    "quarterly_kpis": {
+      "net_margin_target_pct": {"Base": 35, "Stretch": 50, "Breakout": 60},
+      "software_burn_cap_pct_of_revenue": 12,
+      "licensing_mix_target_pct": 25
+    }
+  },
+
+  "workflow": {
+    "intake": [
+      "Bank feeds on; auto-rules apply accounts/classes/tags",
+      "Weekly review: fix exceptions; add missing doc links"
+    ],
+    "finops_agent_roles": [
+      "Maintain mapping table (Vendor→Account/Class/Tags)",
+      "Post monthly dashboard to #ops-report",
+      "Flag burn-rate anomalies (>20% MoM change)"
+    ],
+    "integrations": [
+      "Stripe → QuickBooks (sales receipts/fees)",
+      "MailerLite exports (campaign spend) → QuickBooks",
+      "Sheets snapshot → archive for RAG/Claude audits"
+    ]
+  },
+
+  "tasks_to_start_thread": [
+    {"id": "QB-01", "desc": "Create Classes for all Workstreams", "owner": "!finops", "eta_ET": "2025-10-29"},
+    {"id": "QB-02", "desc": "Load Chart of Accounts as listed", "owner": "!finops", "eta_ET": "2025-10-29"},
+    {"id": "QB-03", "desc": "Create Projects: BF_2025_Rehearsal, RAG_Pipeline_v1, Gemini_Sensory_Pilot", "owner": "!finops", "eta_ET": "2025-10-30"},
+    {"id": "QB-04", "desc": "Set Bank Rules per suggestions", "owner": "!finops", "eta_ET": "2025-10-30"},
+    {"id": "QB-05", "desc": "Seed Vendors list", "owner": "!finops", "eta_ET": "2025-10-30"},
+    {"id": "QB-06", "desc": "Publish first P&L by Class and by Project", "owner": "!finops", "eta_ET": "2025-11-05"}
+  ],
+
+  "notes": {
+    "health_insurance": "Track owner health insurance under Insurance; CPA will advise on deduction treatment.",
+    "home_office": "Optional — track as rent/utilities % if applicable (CPA to confirm method).",
+    "sales_tax": "Enable automated sales tax for ecommerce if dropship SKUs go live."
+  },
+
+  "status": "🟢 Ready — paste to new QuickBooks setup thread and assign to !finops"
+}
+You said:
+Not yet but when i am ready 
+You said:
+What agent is this?
+You said:
+Which agent am i interacting with in this thread now
+You said:
+Understood
+
+ChatGPT can make mistakes. Check important info.

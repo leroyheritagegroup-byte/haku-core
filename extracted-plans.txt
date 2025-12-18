@@ -1,0 +1,79 @@
+ ## Leroy Heritage App Ecosystem
+**Status:** Active
+**Summary:** Primary B2C engine; hybrid checkout when SKUs prove.
+
+Details:
+- Sub-Streams: Branded Tee Preorder, Affiliate Catalog + Expansion v2, Loyalty Upsells, Partner/Guest Series (previously “App Suite”)
+
+## Stillhouse / EDC Wellness Platform
+**Status:** Active
+**Summary:** Includes Highlight Reel, EDC Challenges, Gear Tie-Ins, Print Journals; covers the Body Fat % Tracker and Wellness App (now merged).
+
+Details:
+- Sub-Streams: Highlight Reel, EDC Challenges, Gear Tie-Ins, Print Journals
+
+## Healthcare Adherence System
+**Status:** Active with new ArtOps add-on
+**Summary:** Unchanged with new ArtOps flyer/video kit integration.
+
+Details:
+- Sub-Streams: N/A (currently integrating ArtOps)
+
+## HeritageOps Licensing Suite
+**Status:** Active
+**Summary:** Covers automation, agent IP, FinOps derivative packs.
+
+Details:
+- Sub-Streams: N/A
+
+## ArtOps Creative Branch
+**Status:** Paused → Pilot (reinstated for 2025-Q4 testing)
+**Summary:** Bridges creative economy + AI automation; uses existing agents and workflows rather than new hires.
+
+Details:
+- Sub-Streams: Creative Placement Agent, Editing/Retouch Micro-Services, ArtOps Directory, Creative Workflow Template Packs, Internal Production Hub (serving Stillhouse, Healthcare, and HeritageOps)
+- Revenue & ROI Model: Direct (paid micro-service jobs, directory subscription or referral fees) and Indirect (boosted conversions via high-quality creative in Healthcare pilots and Stillhouse campaigns, bundled upsells in HeritageOps licensing)
+- Integration Hooks: Agents involved: `!content`, `!growth`, `!mo`, `!finops`; Print-on-Demand pipeline (Stillhouse journals), Flyer/Video kits (Healthcare outreach), Marketing visuals & storyboards (Leroy Heritage App / Brand)
+- Next Step Options: Reactivate pilot micro-service, Connect ArtOps to the Healthcare flyer/video kits (scheduled for Nov 15), Prepare ROI tracking template to isolate ArtOps’ contribution to cross-stream revenue.
+
+---
+
+ ## Personal Writing & Editorial Protocol (ArtOps Internal Rule)
+**Status:** Approved
+**Summary:** Maintain authorship integrity across all personal and brand writing by using AI as an editorial support tool.
+
+**Details:**
+- **AI’s role:** Strictly *editorial support* — grammar, structure, clarity, fact-checking, citation assistance, and plagiarism screening.
+- **Human authorship:** All creative writing remains user-written; AI cannot originate or expand creative sections beyond editorial aid.
+- **Compliance:** All text must pass an internal **Attribution Check**, use the system's reference protocol for sources/inspirations, and have every AI edit logged under Controlled Collaboration for authorship proof.
+- **Agents responsible:** `!content` (edit/review), `!security` (authorship log), `!finops` (copyright ROI tracking if monetized).
+
+## ArtOps Revenue Model
+**Status:** Discussed
+**Summary:** A hybrid model — percentage-based revenue share for placements **plus** tiered subscriptions for recurring creative/editorial support — produces the strongest net margin and stability for ArtOps.
+
+**Details:**
+- **Commission-only (rev-share):** Scales fast if artists succeed, but cash flow is irregular with heavy admin and a risk of disputes over credits/payouts. Typical Margin: 15–30% of project gross, but inconsistent.
+- **Subscription-only (tiers):** Predictable MRR, easy automation, and simple ROI tracking, but slower to onboard high-talent creators and harder to scale prestige placements. Typical Gross Margin: 60–75% after onboarding.
+- **Hybrid (recommended):** Combines the benefits of both models for a stronger net margin and stability.
+
+---
+
+ ## **ArtOps Hybrid Model (subscription + commission)**
+**Status:** Approved
+**Summary:** A hybrid monetization model that combines a predictable base income from subscriptions with upside from placements, allowing high performers to upgrade tiers while maintaining a slightly more complex operational structure. The blended margin after 3-6 months of maturity is estimated at 70–80%.
+
+**Details:**
+
+Technical Architecture:
+- Subscription Tiers: Free, Basic, Premium, and Elite
+- Placements: Artwork sales, sponsored posts, collaborations, etc.
+- Onboarding Template Packs: For potential partners to resell ArtOps as "Powered-by-Leroy" hubs
+- Directory + Template Packs: For onboarding new studios, clinics, or creators under white-label licenses
+
+Monetization Structure:
+- Subscription Fees: Free, $9/mo (Basic), $25/mo (Premium), and $50/mo (Elite)
+- Placement Revenue Share: 80% to ArtOps, 20% to partners
+- White-label Licensing: Offers small studios, clinics, or creators the ability to run mini-HeritageOps instances under license
+
+**Impact:** Adding more licensees or scaling the model can bridge the remaining ~$400 K gap to $2 M net.
