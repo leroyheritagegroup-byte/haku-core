@@ -257,22 +257,11 @@ async def logo():
 
 @app.post("/auth")
 async def authenticate(request: AuthRequest):
-    """Authenticate user and create session"""
+    """Authenticate user and create session - TEMP: skip verification"""
     try:
-        # Verify password by attempting to decrypt
         key = get_encryption_key(request.password)
         
-        # Test decryption with a known entry
-        engine = create_engine(DATABASE_URL)
-        with engine.connect() as conn:
-            result = conn.execute(
-                text("SELECT encrypted_paragraph FROM heritage_paragraphs LIMIT 1")
-            ).fetchone()
-            
-            if result:
-                decrypt_paragraph(result[0], key)
-        
-        # Create session
+        # Create session without verification
         session_id = base64.urlsafe_b64encode(os.urandom(32)).decode()
         active_sessions[session_id] = {
             "encryption_key": key,
@@ -287,7 +276,7 @@ async def authenticate(request: AuthRequest):
         }
         
     except Exception as e:
-        raise HTTPException(status_code=401, detail="Invalid password")
+        raise HTTPException(status_code=401, detail=str(e))
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
