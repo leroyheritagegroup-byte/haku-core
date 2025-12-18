@@ -69,7 +69,7 @@ def get_encryption_key(password: str) -> bytes:
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
-        salt=b'haku_heritage_salt',  # Use proper salt in production
+        salt=b'heritage_llm_salt_v1',  # Use proper salt in production
         iterations=100000,
     )
     key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
