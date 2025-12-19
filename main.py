@@ -52,7 +52,7 @@ ENCRYPTION_PASSWORD = os.getenv("ENCRYPTION_PASSWORD", "")
 # Initialize AI clients
 anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 openai.api_key = OPENAI_API_KEY
-genai.configure(api_key=GOOGLE_API_KEY)
+#genai.configure(api_key=GOOGLE_API_KEY)
 
 # ============================================================================
 # SESSION STORAGE (in-memory for demo, use Redis in production)
