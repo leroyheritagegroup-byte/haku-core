@@ -26,7 +26,7 @@ import base64
 # AI clients
 import anthropic
 import openai
-from google import generativeai as genai
+#from google import generativeai as genai
 
 app = FastAPI(title="Haku", version="1.0.0")
 
@@ -46,7 +46,7 @@ app.add_middleware(
 DATABASE_URL = os.getenv("DATABASE_URL")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-genai_client = genai.Client(api_key="GOOGLE_API_KEY")
+#genai_client = genai.Client(api_key="GOOGLE_API_KEY")
 ENCRYPTION_PASSWORD = os.getenv("ENCRYPTION_PASSWORD", "")
 
 # Initialize AI clients
@@ -193,16 +193,8 @@ async def execute_gpt(messages: List[Dict]) -> str:
         raise HTTPException(status_code=500, detail=f"GPT error: {str(e)}")
 
 async def execute_gemini(messages: List[Dict]) -> str:
-    """Execute using Gemini"""
-    try:
-        model = genai.GenerativeModel('gemini-pro')
-        # Convert messages to Gemini format
-        prompt = "\n".join([f"{m['role']}: {m['content']}" for m in messages])
-        response = model.generate_content(prompt)
-        return response.text
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Gemini error: {str(e)}")
-
+    """Execute using Gemini - currently unavailable"""
+    return "Gemini currently unavailable"
 async def execute_ollama(messages: List[Dict]) -> str:
     """Execute using local Ollama"""
     # Note: This requires Ollama to be running locally
