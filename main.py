@@ -26,7 +26,7 @@ import base64
 # AI clients
 import anthropic
 import openai
-from google import genai
+from google import generativeai as genai
 
 app = FastAPI(title="Haku", version="1.0.0")
 
@@ -46,7 +46,7 @@ app.add_middleware(
 DATABASE_URL = os.getenv("DATABASE_URL")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+genai_client = genai.Client(api_key="GOOGLE_API_KEY")
 ENCRYPTION_PASSWORD = os.getenv("ENCRYPTION_PASSWORD", "")
 
 # Initialize AI clients
