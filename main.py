@@ -315,11 +315,17 @@ async def chat(request: ChatRequest):
     
     try:
         # Step 1: Query Heritage LLM for context
-        heritage_context = query_heritage_llm(
-            request.message, 
-            session["encryption_key"],
-            max_results=3
+        # Query Heritage LLM (optional - may not be loaded yet)
+	heritage_context = []
+	try:
+           heritage_context = query_heritage_llm(
+               request.message, 
+               session["encryption_key"],
+               max_results=3
         )
+    except Exception as e:
+        # Heritage LLM not available - continue without it
+        pass
         
         # Build context string
         context_str = ""
