@@ -7,3 +7,4 @@ cryptography
 anthropic
 openai
 requests
+pydantic
