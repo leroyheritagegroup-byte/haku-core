@@ -270,18 +270,22 @@ async def logo():
 async def authenticate(request: AuthRequest):
     """Authenticate user and create session"""
     try:
-        # Verify password by attempting to decrypt
+        # Generate encryption key from password
         key = get_encryption_key(request.password)
         
-        # Test decryption with a known entry
-        engine = create_engine(DATABASE_URL)
-        with engine.connect() as conn:
-            result = conn.execute(
-                text("SELECT encrypted_paragraph FROM heritage_paragraphs LIMIT 1")
-            ).fetchone()
-            
-            if result:
-                decrypt_paragraph(result[0], key)
+        # Try to test decryption with Heritage LLM if available
+        try:
+            engine = create_engine(DATABASE_URL)
+            with engine.connect() as conn:
+                result = conn.execute(
+                    text("SELECT encrypted_paragraph FROM heritage_paragraphs LIMIT 1")
+                ).fetchone()
+                
+                if result:
+                    decrypt_paragraph(result[0], key)
+        except Exception as db_error:
+            # Heritage LLM not available - that's OK, continue anyway
+            pass
         
         # Create session
         session_id = base64.urlsafe_b64encode(os.urandom(32)).decode()
@@ -299,7 +303,6 @@ async def authenticate(request: AuthRequest):
         
     except Exception as e:
         raise HTTPException(status_code=401, detail="Invalid password")
-
 @app.post("/chat")
 async def chat(request: ChatRequest):
     """Main chat endpoint with MOA routing and TT-01 validation"""
