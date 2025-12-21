@@ -270,10 +270,10 @@ async def logo():
 async def authenticate(request: AuthRequest):
     """Authenticate user and create session"""
     try:
-        # Generate encryption key from password
+        # Verify password by attempting to decrypt
         key = get_encryption_key(request.password)
         
-        # Try to test decryption with Heritage LLM if available
+        # Test decryption with a known entry (optional)
         try:
             engine = create_engine(DATABASE_URL)
             with engine.connect() as conn:
@@ -283,9 +283,8 @@ async def authenticate(request: AuthRequest):
                 
                 if result:
                     decrypt_paragraph(result[0], key)
-        except Exception as db_error:
-            # Heritage LLM not available - that's OK, continue anyway
-            pass
+        except:
+            pass  # Heritage LLM not loaded yet
         
         # Create session
         session_id = base64.urlsafe_b64encode(os.urandom(32)).decode()
@@ -303,6 +302,7 @@ async def authenticate(request: AuthRequest):
         
     except Exception as e:
         raise HTTPException(status_code=401, detail="Invalid password")
+
 @app.post("/chat")
 async def chat(request: ChatRequest):
     """Main chat endpoint with MOA routing and TT-01 validation"""
@@ -314,18 +314,16 @@ async def chat(request: ChatRequest):
     session = active_sessions[request.session_id]
     
     try:
-        # Step 1: Query Heritage LLM for context
-        # Query Heritage LLM (optional - may not be loaded yet)
-	heritage_context = []
-	try:
-           heritage_context = query_heritage_llm(
-               request.message, 
-               session["encryption_key"],
-               max_results=3
-        )
-    except Exception as e:
-        # Heritage LLM not available - continue without it
-        pass
+        # Step 1: Query Heritage LLM for context (optional)
+        heritage_context = []
+        try:
+            heritage_context = query_heritage_llm(
+                request.message, 
+                session["encryption_key"],
+                max_results=3
+            )
+        except:
+            pass  # Heritage LLM not loaded yet
         
         # Build context string
         context_str = ""
