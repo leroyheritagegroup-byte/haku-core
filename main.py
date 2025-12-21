@@ -1,6 +1,6 @@
 """
 Haku - AI Orchestration Hub with Governance
-FastAPI backend with multi-AI routing and Heritage LLM integration
+FastAPI backend with multi-AI routing, MOA organ system, and Heritage LLM integration
 """
 
 from fastapi import FastAPI, HTTPException, Depends, Request
@@ -14,6 +14,10 @@ import asyncio
 from datetime import datetime
 import json
 
+# Governance layers
+from tt01_validation import TT01Validator, ValidationStatus
+from moa_routing import MOARouter, TaskClass
+
 # Database
 from sqlalchemy import create_engine, text
 from sqlalchemy.orm import Session
@@ -26,7 +30,7 @@ import base64
 # AI clients
 import anthropic
 import openai
-#from google import generativeai as genai
+from google import genai
 
 app = FastAPI(title="Haku", version="1.0.0")
 
@@ -46,13 +50,17 @@ app.add_middleware(
 DATABASE_URL = os.getenv("DATABASE_URL")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-#genai_client = genai.Client(api_key="GOOGLE_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
 ENCRYPTION_PASSWORD = os.getenv("ENCRYPTION_PASSWORD", "")
 
 # Initialize AI clients
 anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
-openai.api_key = OPENAI_API_KEY
-#genai.configure(api_key=GOOGLE_API_KEY)
+openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
+gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
+
+# Initialize governance layers
+tt01_validator = TT01Validator()
+moa_router = MOARouter()
 
 # ============================================================================
 # SESSION STORAGE (in-memory for demo, use Redis in production)
@@ -69,7 +77,7 @@ def get_encryption_key(password: str) -> bytes:
     kdf = PBKDF2HMAC(
         algorithm=hashes.SHA256(),
         length=32,
-        salt=b'heritage_llm_salt_v1',  # Use proper salt in production
+        salt=b'haku_heritage_salt',  # Use proper salt in production
         iterations=100000,
     )
     key = base64.urlsafe_b64encode(kdf.derive(password.encode()))
@@ -183,7 +191,7 @@ async def execute_claude(messages: List[Dict]) -> str:
 async def execute_gpt(messages: List[Dict]) -> str:
     """Execute using GPT"""
     try:
-        response = openai.ChatCompletion.create(
+        response = openai_client.chat.completions.create(
             model="gpt-4-turbo-preview",
             messages=messages,
             max_tokens=4000
@@ -193,8 +201,19 @@ async def execute_gpt(messages: List[Dict]) -> str:
         raise HTTPException(status_code=500, detail=f"GPT error: {str(e)}")
 
 async def execute_gemini(messages: List[Dict]) -> str:
-    """Execute using Gemini - currently unavailable"""
-    return "Gemini currently unavailable"
+    """Execute using Gemini"""
+    try:
+        # Convert messages to Gemini format
+        prompt = "\n".join([f"{m['role']}: {m['content']}" for m in messages])
+        
+        response = gemini_client.models.generate_content(
+            model='gemini-2.0-flash-exp',
+            contents=prompt
+        )
+        return response.text
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Gemini error: {str(e)}")
+
 async def execute_ollama(messages: List[Dict]) -> str:
     """Execute using local Ollama"""
     # Note: This requires Ollama to be running locally
@@ -249,11 +268,22 @@ async def logo():
 
 @app.post("/auth")
 async def authenticate(request: AuthRequest):
-    """Authenticate user and create session - TEMP: skip verification"""
+    """Authenticate user and create session"""
     try:
+        # Verify password by attempting to decrypt
         key = get_encryption_key(request.password)
         
-        # Create session without verification
+        # Test decryption with a known entry
+        engine = create_engine(DATABASE_URL)
+        with engine.connect() as conn:
+            result = conn.execute(
+                text("SELECT encrypted_paragraph FROM heritage_paragraphs LIMIT 1")
+            ).fetchone()
+            
+            if result:
+                decrypt_paragraph(result[0], key)
+        
+        # Create session
         session_id = base64.urlsafe_b64encode(os.urandom(32)).decode()
         active_sessions[session_id] = {
             "encryption_key": key,
@@ -268,11 +298,11 @@ async def authenticate(request: AuthRequest):
         }
         
     except Exception as e:
-        raise HTTPException(status_code=401, detail=str(e))
+        raise HTTPException(status_code=401, detail="Invalid password")
 
 @app.post("/chat")
 async def chat(request: ChatRequest):
-    """Main chat endpoint with multi-AI routing"""
+    """Main chat endpoint with MOA routing and TT-01 validation"""
     
     # Verify session
     if request.session_id not in active_sessions:
@@ -281,36 +311,38 @@ async def chat(request: ChatRequest):
     session = active_sessions[request.session_id]
     
     try:
-        # Query Heritage LLM for context
+        # Step 1: Query Heritage LLM for context
         heritage_context = query_heritage_llm(
             request.message, 
             session["encryption_key"],
             max_results=3
         )
         
-        # Build context-enhanced message
+        # Build context string
         context_str = ""
         if heritage_context:
             context_str = "\n\nRelevant context from Heritage LLM:\n"
             for ctx in heritage_context:
                 context_str += f"- [{ctx['topic']}]: {ctx['content'][:200]}...\n"
         
-        enhanced_message = request.message + context_str
-        
-        # Classify privacy tier
+        # Step 2: Classify privacy tier
         tier = classify_privacy_tier(request.message)
         
-        # Route to appropriate AI
-        ai_engine = route_to_ai(tier, request.message)
+        # Step 3: Get MOA routing (organ-based + mode detection)
+        routing = moa_router.get_routing(request.message, tier, context_str)
         
-        # Build messages array
+        # Step 4: Build messages array
+        enhanced_message = request.message + context_str
+        
         messages = [
-            {"role": "system", "content": "You are Haku, an AI orchestration assistant with access to Heritage knowledge."},
+            {"role": "system", "content": "You are Haku, an AI orchestration assistant with access to Heritage knowledge. Provide clear, evidence-based responses without shortcuts or assumptions."},
             *session["conversation_history"][-10:],  # Last 10 messages for context
             {"role": "user", "content": enhanced_message}
         ]
         
-        # Execute on selected AI
+        # Step 5: Execute on primary AI (determined by MOA)
+        ai_engine = routing['primary_ai']
+        
         if ai_engine == 'claude':
             response = await execute_claude(messages)
         elif ai_engine == 'gpt':
@@ -320,14 +352,48 @@ async def chat(request: ChatRequest):
         else:  # ollama
             response = await execute_ollama(messages)
         
-        # Update conversation history
+        # Step 6: TT-01 Validation (if required)
+        validation_message = ""
+        if routing['requires_conscience_check']:
+            validation_result = tt01_validator.validate_response(
+                response, 
+                request.message,
+                context_str
+            )
+            
+            # Format validation feedback
+            validation_message = tt01_validator.format_validation_message(validation_result)
+            
+            # Block if validation fails
+            if validation_result.status == ValidationStatus.BLOCKED:
+                return {
+                    "response": "❌ TT-01 BLOCKED: Response failed validation checks.\n\n" + 
+                               validation_message + 
+                               "\n\nPlease rephrase your query or request clarification.",
+                    "ai_engine": ai_engine,
+                    "privacy_tier": tier,
+                    "task_class": routing['task_class'],
+                    "mode": routing['mode'],
+                    "validation_status": "blocked",
+                    "heritage_context_used": len(heritage_context) > 0
+                }
+        
+        # Step 7: Update conversation history
         session["conversation_history"].append({"role": "user", "content": request.message})
         session["conversation_history"].append({"role": "assistant", "content": response})
         
+        # Step 8: Add validation message if present
+        final_response = response
+        if validation_message:
+            final_response = response + "\n\n---\n" + validation_message
+        
         return {
-            "response": response,
+            "response": final_response,
             "ai_engine": ai_engine,
             "privacy_tier": tier,
+            "task_class": routing['task_class'],
+            "mode": routing['mode'],
+            "validation_status": "approved" if not validation_message else "warnings",
             "heritage_context_used": len(heritage_context) > 0
         }
         
