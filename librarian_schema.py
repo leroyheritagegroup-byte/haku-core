@@ -91,7 +91,16 @@ class KnowledgeLink(Base):
 def init_db(database_url):
     """Initialize database with schema"""
     engine = create_engine(database_url)
-    Base.metadata.create_all(engine)
+    
+    # Explicitly create tables in order (dependencies first)
+    # This ensures junction tables are created after their referenced tables
+    User.__table__.create(engine, checkfirst=True)
+    Topic.__table__.create(engine, checkfirst=True)
+    Conversation.__table__.create(engine, checkfirst=True)
+    conversation_topics.create(engine, checkfirst=True)
+    Message.__table__.create(engine, checkfirst=True)
+    KnowledgeLink.__table__.create(engine, checkfirst=True)
+    
     return engine
 
 # Seed initial data
