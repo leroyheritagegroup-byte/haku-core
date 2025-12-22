@@ -51,12 +51,18 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+GROK_API_KEY = os.getenv("GROK_API_KEY")  # Grok
 ENCRYPTION_PASSWORD = os.getenv("ENCRYPTION_PASSWORD", "")
 
 # Initialize AI clients
 anthropic_client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
 openai_client = openai.OpenAI(api_key=OPENAI_API_KEY)
 gemini_client = genai.Client(api_key=GOOGLE_API_KEY)
+# Grok uses OpenAI-compatible API
+grok_client = openai.OpenAI(
+    api_key=GROK_API_KEY,
+    base_url="https://api.x.ai/v1"
+) if GROK_API_KEY else None
 
 # Initialize governance layers
 tt01_validator = TT01Validator()
@@ -235,6 +241,22 @@ async def execute_ollama(messages: List[Dict]) -> str:
         # Fallback to Claude if Ollama not available
         return await execute_claude(messages)
 
+async def execute_grok(messages: List[Dict]) -> str:
+    """Execute using Grok (xAI)"""
+    if not grok_client:
+        # Fallback to GPT if Grok not configured
+        return await execute_gpt(messages)
+    
+    try:
+        response = grok_client.chat.completions.create(
+            model="grok-beta",
+            messages=messages,
+            max_tokens=4000
+        )
+        return response.choices[0].message.content
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Grok error: {str(e)}")
+
 # ============================================================================
 # MODELS
 # ============================================================================
@@ -356,6 +378,8 @@ async def chat(request: ChatRequest):
             response = await execute_gpt(messages)
         elif ai_engine == 'gemini':
             response = await execute_gemini(messages)
+        elif ai_engine == 'grok':
+            response = await execute_grok(messages)
         else:  # ollama
             response = await execute_ollama(messages)
         
