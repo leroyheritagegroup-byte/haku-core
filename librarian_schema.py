@@ -101,34 +101,43 @@ def seed_initial_data(engine):
     
     session = Session(engine)
     
-    # Create users if they don't exist
-    if not session.query(User).filter_by(username='thom').first():
-        thom = User(username='thom', display_name='Thom')
-        session.add(thom)
-    
-    if not session.query(User).filter_by(username='karen').first():
-        karen = User(username='karen', display_name='Karen')
-        session.add(karen)
-    
-    # Create core topics
-    core_topics = [
-        ('Patents', 'Patent applications and IP strategy'),
-        ('ForgedOS', 'ForgedOS platform development and architecture'),
-        ('Haku', 'Haku AI orchestration system'),
-        ('Heritage', 'Heritage LLM and knowledge management'),
-        ('MOA', 'Model-Organism Architecture'),
-        ('Governance', 'AI governance frameworks (HGC-01, TT-01, etc.)'),
-        ('Valuation', 'Exit strategy and valuation planning'),
-        ('General', 'Miscellaneous conversations')
-    ]
-    
-    for name, desc in core_topics:
-        if not session.query(Topic).filter_by(name=name).first():
-            topic = Topic(name=name, description=desc, auto_created=False)
-            session.add(topic)
-    
-    session.commit()
-    session.close()
+    try:
+        # Create users if they don't exist
+        if not session.query(User).filter_by(username='thom').first():
+            thom = User(username='thom', display_name='Thom')
+            session.add(thom)
+        
+        if not session.query(User).filter_by(username='karen').first():
+            karen = User(username='karen', display_name='Karen')
+            session.add(karen)
+        
+        # Commit users first
+        session.commit()
+        
+        # Create core topics
+        core_topics = [
+            ('Patents', 'Patent applications and IP strategy'),
+            ('ForgedOS', 'ForgedOS platform development and architecture'),
+            ('Haku', 'Haku AI orchestration system'),
+            ('Heritage', 'Heritage LLM and knowledge management'),
+            ('MOA', 'Model-Organism Architecture'),
+            ('Governance', 'AI governance frameworks (HGC-01, TT-01, etc.)'),
+            ('Valuation', 'Exit strategy and valuation planning'),
+            ('General', 'Miscellaneous conversations')
+        ]
+        
+        for name, desc in core_topics:
+            if not session.query(Topic).filter_by(name=name).first():
+                topic = Topic(name=name, description=desc, auto_created=False)
+                session.add(topic)
+        
+        session.commit()
+        print("Seeded users and topics successfully")
+    except Exception as e:
+        session.rollback()
+        print(f"Seed error (may be okay if already seeded): {e}")
+    finally:
+        session.close()
 
 if __name__ == '__main__':
     # For testing
