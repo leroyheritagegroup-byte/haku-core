@@ -5,7 +5,7 @@ Auto-detects topics, organizes conversations, prevents duplication
 
 from typing import List, Dict, Optional, Set
 from sqlalchemy.orm import Session
-from librarian_schema import User, Topic, Conversation, Message, KnowledgeLink
+from librarian_schema import User, Topic, Conversation, Message, KnowledgeLink, conversation_topics
 from datetime import datetime
 import re
 

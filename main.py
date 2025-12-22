@@ -78,12 +78,13 @@ def initialize_librarian():
     try:
         print("Initializing Librarian database...")
         engine = init_db(DATABASE_URL)
+        print("Tables created successfully")
         seed_initial_data(engine)
         print("✅ Librarian database ready")
         return engine
     except Exception as e:
-        # Tables might already exist, that's okay
-        print(f"Librarian already initialized: {e}")
+        # If tables exist, that's fine - just return engine
+        print(f"Librarian init info: {e}")
         return create_engine(DATABASE_URL)
 
 # Create database engine and session maker
